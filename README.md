@@ -1,2 +1,2 @@
 # mypython
-Python code I write for job automation, to have fun and maybe one day get some cash :-)
+Python code I write for job/life automation, personal projects and whatever else ;-)
