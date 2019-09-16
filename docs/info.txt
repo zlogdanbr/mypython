@@ -1,0 +1,124 @@
+Pip windows
+
+python -m pip <pkg>
+___________________________________________________________________________________________            
+#Virtual env 
+## Criar
+$ python3.7 -m venv python37env
+$ python3.6 -m venv python36env
+
+
+## usar
+$ source python37env/bin/activate  3.7
+$ source python36env/bin/activate 3.6
+
+
+## sair
+$deactivate
+
+___________________________________________________________________________________________   
+
+# install
+
+cd $HOME
+mkdir tool
+cp tool.tar.gz tool
+gunzip tool.tar.gz
+tar -mpcf tool.tar
+
+cd $HOME;
+python3.6 -m venv python36env;
+source python36env/bin/activate;
+pip install cx_Oracle --upgrade;
+pip install numpy;
+pip install scipy;
+pip install matplotlib;
+pip install sklearn;
+pip install pandas;
+pip install requests;
+pip install jinja2
+deactivate;
+
+#to use 
+source python36env/bin/activate
+cd $HOME/tool/app
+
+python tool.py ini_file txt_file
+
+/usr/local/bin/python3.7
+
+rm -f /usr/local/bin/python3.7
+rm -f /usr/local/bin/pip3.7
+rm -f /usr/local/bin/pydoc
+rm -rf /usr/local/bin/include/python3.7
+rm -f /usr/local/lib/libpython3.7.a
+rm -rf /usr/local/lib/python3.7
+rm -f /usr/local/share/man/python3.7.1
+rm -f /usr/local/bin/easy_install-3.7
+
+
+rm -rf /usr/local/lib/pkgconfig
+rm -f /usr/local/bin/idle
+
+
+sqlite.x86_64 : Library that implements an embeddable SQL database engine
+sqlite-devel.i686 : Development tools for the sqlite3 embeddable SQL database
+sqlite-devel.x86_64 : Development tools for the sqlite3 embeddable SQL database
+
+
+____________________________________________________________________________________________
+#INSTALL Python 3/6 3.7
+
+antes de tudo instalar a biblioteca a seguir
+$ sudo apt-get install libffi-dev
+sudo yum install -y libffi libffi-devel
+
+conforme https://tecadmin.net/install-python-3-7-on-centos/
+
+# yum install gcc openssl-devel bzip2-devel
+# cd /usr/src
+# wget https://www.python.org/ftp/python/3.7.2/Python-3.7.2.tgz
+# tar xzf Python-3.7.2.tgz
+# cd Python-3.7.2
+# ./configure --enable-optimizations
+# make altinstall
+# rm /usr/src/Python-3.7.2.tgz
+# python3.7 -V
+
+
+https://tecadmin.net/install-python-3-6-on-centos/
+
+____________________________________________________________________________________________
+## Banco de dados
+
+exemplo conexao
+
+import cx_Oracle
+con = cx_Oracle.connect('cl24aegl/cl24aegl@10.99.168.25/orion')
+
+cur = con.Cursor()
+cur.execute("select ...")
+for row in cursor:
+    print(row[0])
+cur.close()
+con.close()
+
+conforme:
+https://www.oracle.com/technetwork/articles/dsl/python-091105.html
+ 
+____________________________________________________________________________________________
+
+## Create python executable
+
+pip install pyinstaller
+
+pyinstaller --onefile <your_script_name>.py
+
+pyinstaller --onefile tool.py
+
+
+~/virtualenv/bin/python 
+
+
+/home/e5030079/.local/bin
+____________________________________________________________________________________________
