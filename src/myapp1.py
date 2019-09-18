@@ -8,17 +8,17 @@ class myapp(wx.Frame):
         super(myapp, self).__init__(*args, **kwargs)
         self.InitUI()
 
-    menu1 =  { 
-                 wx.ID_NEW :  ['&New', 0, ""],
-                 wx.ID_OPEN:  ['&Open', 0, ""],
-                 wx.ID_SAVE:  ['&Save', 0, ""],   
-                 wx.ID_EXIT:  ['&Quit\tCtrl+W',1, "OnQuit" ]            
+    menu1 =  {   #ID            MenuItem          qm          Event
+                 wx.ID_NEW :  ['&New',              0,          ""],
+                 wx.ID_OPEN:  ['&Open',             0,          ""],
+                 wx.ID_SAVE:  ['&Save',             0,          ""],   
+                 wx.ID_EXIT:  ['&Quit\tCtrl+W',     1,    "OnQuit"]            
              }
              
     menu2 =  { 
-                wx.ID_NEW: ['&Load Video',0,""],                    
-                wx.ID_OPEN: ['&Start Processing',0,""],               
-                wx.ID_SAVE: ['&Stop video',0,""]   
+                wx.ID_NEW:      ['&Load Video',         0,      ""],                    
+                wx.ID_OPEN:     ['&Start Processing',   0,      ""],               
+                wx.ID_SAVE:     ['&Stop video',         0,      ""]   
              }
              
                       
