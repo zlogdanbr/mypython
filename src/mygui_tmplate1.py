@@ -21,7 +21,7 @@ class myapp(wx.Frame):
                  wx.ID_EXIT:        ['&Quit\tCtrl+W',     1,          "OnQuit",'icon/go-down.png']            
              }
  
-             
+
     menu2 =  { 
                 wx.ID_DEFAULT:      ['&Load Video',         1,      "OnLoadVid", 'icon/media-playback-start.png'],                     
              }
