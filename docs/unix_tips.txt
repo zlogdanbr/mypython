@@ -5,7 +5,7 @@
 
 
 1.1 Basico 
-1.2 Avançado 
+1.2 Avan�ado 
 1.3 Vim 
 
 
@@ -35,7 +35,7 @@
 
 3.1 Disk Usage 
 3.2 Processor load 
-3.3 Tutorial rÃ¡pido de permissÃµes 
+3.3 Tutorial rápido de permissões 
 3.4 Changing groups
 3.5 User space
 3.6 List users and groups
@@ -62,8 +62,7 @@
     3.9.18 System logs Red Hat
     3.9.19 Increasing FS size ( AIX )>
     3.9.20 yum >
-
-3.10 Find Red Hat Version
+    3.9.21 Find Red Hat Version
 
 
 ## 4 SHELL PROGRAMMING
@@ -157,7 +156,7 @@ G               ( end of file )
                 You can jump to line number 700 (press ESC type 700G) 700G
 
                 
-## 1.2 Avançado
+## 1.2 Avan�ado
 --------------------------------------------------------
 
 ```
@@ -254,12 +253,12 @@ $                       fim da lina
 0                       inicio da linha
 nyy                     copia n linhas
 p                       cola
-ms                      cria bookmark s ## a nÃ£o funciona
+ms                      cria bookmark s ## a não funciona
 's                      acessa s
 :set list               mostra caracteres
 :set nolist             desabilita
 :set ff=unix            converte LE para UNIX
-:retab                  remove tabs e converte para espaÃ§os
+:retab                  remove tabs e converte para espaços
 G                       Final do arquivo
 gg                      Inicio do arquivo
 :n                      Abre mais arquivos
@@ -644,7 +643,7 @@ uptime |cut -d ":" -f 4                         (AIX)
 uptime |cut -d ":" -f 4 |cut -d"." -f1          (AIX)
 
 
-## 3.3 Tutorial rÃ¡pido de permissÃµes
+## 3.3 Tutorial rápido de permissões
 --------------------------------------------------------
 
 CHMOD Chart
@@ -727,7 +726,7 @@ AIX                 smitty
 ## 3.7 User admin
 --------------------------------------------------------
 
-useradd -d /home/lc531301 -m -s /usr/bin/ksh -c "Jimenez, Ralph" lc531301
+'' -d /home/lc531301 -m -s /usr/bin/ksh -c "Jimenez, Ralph" lc531301
 passwd -f lc531301
 
 useradd -d /home/sw761bre -m -s /usr/bin/ksh -c "Bre switch" sw761bre
@@ -790,6 +789,14 @@ useradd -d /home/e5021359 -m -s /usr/bin/ksh -g switch -G staff -c "Sergio" e502
 
 useradd -d /home/e5021359 -m -s /usr/bin/ksh -g staff -c "Sergio" e5021359
 
+useradd -d /home/swb77pmp -m -s /usr/bin/ksh -g devlatam -G tools -c "swb77pmp" swb77pmp
+
+ clraegl25qa
+ 
+useradd -d /home/clraegl25qa -m -s /usr/bin/ksh -g appfis -c "clraegl25qa" clraegl25qa
+
+
+useradd -d /home/clrgegl25qa -m -s /usr/bin/ksh -g appfis -c "clrgegl25qa" clrgegl25qa
 
 ## 3.8 File system usage
 --------------------------------------------------------
@@ -806,7 +813,7 @@ AIX e HPUX
 
 /dev
 Usar smitty ou sam
-OBS: dentro do smitty apÃ³s executar um comando podemos com F6 obter qual comando o smitty
+OBS: dentro do smitty após executar um comando podemos com F6 obter qual comando o smitty
 executou.
 
 Solaris
@@ -842,7 +849,7 @@ Caracter acesso unico ex fita cxxx-xxx-xxx
 
 ### 3.9.3 Fluxo de dados
 
-Quando teclamos cat arquivo > lp0 o Unix verifica o parametro minor para saber onde estÃ¡ o device,
+Quando teclamos cat arquivo > lp0 o Unix verifica o parametro minor para saber onde está o device,
 e major para saber qual driver.
 
 ### 3.9.4  AIX Discos
@@ -903,11 +910,11 @@ root@rsc2aix61:/dev:>
 Aix e Hpux verificar usando smitty/sam
 
 
-### 3.9.8 ConfiguraÃ§Ã£o sistema
+### 3.9.8 Configuração sistema
 AIX /Hpux               Smitty/sam
-Solaris                 prtconf configuraÃ§Ãµes do sistema
-Solaris                 sysdef informaÃ§Ãµes do sistema
-Apostila admin sol      pÃ¡gina 39
+Solaris                 prtconf configurações do sistema
+Solaris                 sysdef informações do sistema
+Apostila admin sol      página 39
 
 
 ### 3.9.9 Logs
@@ -915,26 +922,26 @@ AIX syslogd ( mensagens de diagnostico do sistema)
 Solaris/HPUX ( dmesg)
 
 
-### 3.9.10 UsuÃ¡rios e grupos
+### 3.9.10 Usuários e grupos
 
 /etc/passwd  /etc/group ( aix, solaris e hpux)
 /etc/shadow ( senhas Solaris)
 
 
-ConfiguraÃ§Ãµes default para o usuÃ¡rio podem estar em /etc/default/login mas em geral
-estÃ£o em /etc/profile
+Configurações default para o usuário podem estar em /etc/default/login mas em geral
+estão em /etc/profile
 
 
 ### 3.9.11 passwd
 
-passwd -f user forÃ§a o usuÃ¡rio a trocar a senhas
+passwd -f user força o usuário a trocar a senhas
 Pode ser usado para definir politicas de senha.
 
 ### 3.9.12 groups
 
 groups          Lista os grupos
-id              retorna o id do usuÃ¡rio
-logins USER     logins usuÃ¡rios
+id              retorna o id do usuário
+logins USER     logins usuários
 
 ### 3.9.13 processos em background
 
@@ -1054,9 +1061,9 @@ yum list installed
 yum remove package_name
 
 
-## 3.10 Find Red Hat Version
+### 3.9.21 Find Red Hat Version>
 
-    cat /etc/redhat-release.
+cat /etc/redhat-release.
 
 ## SHELL PROGRAMMING
 
@@ -1199,7 +1206,7 @@ Vsid      Esid Type Description              PSize  Inuse   Pin Pgsp Virtual
 --------------------------------------------------------
 
 stopsrc -s sshd;sleep 2;startsrc -s sshd
-lssrc -g ssh ( mostra se estÃ¡ ativo )
+lssrc -g ssh ( mostra se está ativo )
 ## se estiver
 truss startsrc -s sshd
 
@@ -1293,13 +1300,13 @@ Minimum number of weeks between password changes.
 - verify
 lslpp -al "mqm*"
 
-- Instale o produto inteiro no local padrÃ£o:
+- Instale o produto inteiro no local padrão:
 installp -acgXYd. ALL
-- Instale os conjuntos de arquivos selecionados no local padrÃ£o:
+- Instale os conjuntos de arquivos selecionados no local padrão:
 installp -acgXYd. list of file sets
-- Instale o produto inteiro em um local nÃ£o padrÃ£o usando o sinalizador -R:
+- Instale o produto inteiro em um local não padrão usando o sinalizador -R:
 installp -R USIL_Directory -acgXYd. tudo
-- Instale os conjuntos de arquivos selecionados em um local nÃ£o padrÃ£o usando o sinalizador -R:
+- Instale os conjuntos de arquivos selecionados em um local não padrão usando o sinalizador -R:
 installp -R USIL_Directory -acgXYd. list of file sets
 
 
@@ -1319,7 +1326,7 @@ truss -l -d -f -p
 
 
 AIX
-DiretÃ³rios rc contem scripts executados quando o OS entra no nÃ­vel  desejado
+Diretórios rc contem scripts executados quando o OS entra no nível  desejado
 @rsc2aix61(/etc/rc.d)$ ls -lR
 total 8
 drwxr-xr-x    2 root     system          256 Oct 17 2014  init.d
@@ -1392,7 +1399,7 @@ rcS.d
 
 ###  5.9.2 inittab e comando init
 init <modo> troca o estado e executa os arquivos dentro do rc respectivos
-inittab contem a inicializaÃ§Ã£o dos processos do os
+inittab contem a inicialização dos processos do os
 
 ## 5.10 What system logs and commands can I use to investigate an unexpected shut down?>
 --------------------------------------------------------
@@ -1587,9 +1594,9 @@ Same as the above command, but rather than directly transferring the file from o
 the transfer is routed through the local host.
 Related commands
 
-rcp â Copy files to or from a remote system.
-sftp â Conduct an interactive FTP session over a secure network connection.
-slogin â Login to a remote system securely.
+rcp � Copy files to or from a remote system.
+sftp � Conduct an interactive FTP session over a secure network connection.
+slogin � Login to a remote system securely.
 
 
 ## 8.2 Enable telnet
@@ -1815,7 +1822,7 @@ awk '/a/{++cnt} END {print "Count = ", cnt}' marks.txt
 
 awk 'BEGIN {print "Arguments =", ARGC}' One Two Three Four
 
-On executing this code, you get the following result â
+On executing this code, you get the following result �
 
 Output
 
@@ -1910,53 +1917,55 @@ $ gdb executablefile
 
 - Starting/stopping
 ````
-run ARGS — 				start the program with the arguments ARGS
-run ARGS <input.txt — 	start the program with the arguments ARGS, reading input from the file input.txt
-kill — 					terminate the current program
-stepi — 				step forward by one instruction
-nexti — 				step forward by one instruction, skipping any called function
-continue — 				run until breakpoint
+run ARGS � 				start the program with the arguments ARGS
+run ARGS <input.txt � 	start the program with the arguments ARGS, reading input from the file input.txt
+kill � 					terminate the current program
+stepi � 				step forward by one instruction
+nexti � 				step forward by one instruction, skipping any called function
+continue � 				run until breakpoint
 ````
 
 - Breakpoint related
 ````
-b function — 			set a breakpoint at entry to a particular function
-b *0x123456 — 			set a breakpoint at the instruction at address 0x123456
-watch *(int*)0x123456 — set a “watchpoint” that will trigger whenever memory at 0x123456 is updated
-watch *(int*)0x123456 == 42 — set a “watchpoint” that will trigger whenever the int at address 0x123456 equals 42 (assuming it currently is not 42)
-rwatch *(int*)0x123456 — set a “watchpoint” that will trigger whnever the program reads memory at 0x123456
-info breakpoints, info watchpoints — view all active breakpoints/watchpoints
-delete ID — clear breakpoint/watchpoint with the specified ID
+b function � 			set a breakpoint at entry to a particular function
+b *0x123456 � 			set a breakpoint at the instruction at address 0x123456
+watch *(int*)0x123456 � set a �watchpoint� that will trigger whenever memory at 0x123456 is updated
+watch *(int*)0x123456 == 42 � set a �watchpoint� that will trigger whenever the int at address 0x123456 equals 42 (assuming it currently is not 42)
+rwatch *(int*)0x123456 � set a �watchpoint� that will trigger whnever the program reads memory at 0x123456
+info breakpoints, info watchpoints � view all active breakpoints/watchpoints
+delete ID � clear breakpoint/watchpoint with the specified ID
 
 ````
 - Register examination
 ````
-info registers — view all general purpose registers
-info all-registers — view all registers, even floating point registers, segment registers, etc.
+info registers � view all general purpose registers
+info all-registers � view all registers, even floating point registers, segment registers, etc.
 
 ````
 - Memory examination
 
 ````
-x/100bx 0x12345678 — print out 100 bytes of memory starting at address 0x12345678, as a sequence of 1-byte hexadecimal numbers
-x/2gx 0x12345678 — print out 16 bytes of memory starting at address 0x12345678, as a two eight-byte hexdecimal numbers
-x/s 0x12345678 — print out memory starting at address 0x12345678 as a \0-terminated string
-x/wd 0x12345678 — print out memory at address 0x12345678 as a single 4-byte decimal integer
-x/hd 0x12345678 — print out memory at address 0x12345678 as a single 2-byte decimal integer
-x/100bx $rsi — print out 100 bytes of memory starting at the address in %rsi 
+x/100bx 0x12345678 � print out 100 bytes of memory starting at address 0x12345678, as a sequence of 1-byte hexadecimal numbers
+x/2gx 0x12345678 � print out 16 bytes of memory starting at address 0x12345678, as a two eight-byte hexdecimal numbers
+x/s 0x12345678 � print out memory starting at address 0x12345678 as a \0-terminated string
+x/wd 0x12345678 � print out memory at address 0x12345678 as a single 4-byte decimal integer
+x/hd 0x12345678 � print out memory at address 0x12345678 as a single 2-byte decimal integer
+x/100bx $rsi � print out 100 bytes of memory starting at the address in %rsi 
 				(you can similarly use $rsi in place of an address in the commands above)
-print *((long*) 0x12345678) — output the value of address 0x12345678 as a long (awkward way)
+print *((long*) 0x12345678) � output the value of address 0x12345678 as a long (awkward way)
 can also use an arbitrary C expression
-display *((long*) 0x12345678) — output the value of address 0x12345678 as a long every time the program stops
-undisplay ID — unset a previous display command
+display *((long*) 0x12345678) � output the value of address 0x12345678 as a long every time the program stops
+undisplay ID � unset a previous display command
 info display lists active IDs
 Disassembly related
-disassemble function — disassemble a function by name
-disassemble 0x10000,0x10050 — disassemble whatever’s in memory between addresses 0x10000 and 0x10050`
-x/6i 0x10000 — disassemble 6 instructions starting at address 0x10000
-set disassembly-flavor att, set disassembly-flavor intel — switch between AT&T and Intel syntax assembly
+disassemble function � disassemble a function by name
+disassemble 0x10000,0x10050 � disassemble whatever�s in memory between addresses 0x10000 and 0x10050`
+x/6i 0x10000 � disassemble 6 instructions starting at address 0x10000
+set disassembly-flavor att, set disassembly-flavor intel � switch between AT&T and Intel syntax assembly
 ````
 
 - Segfault related
-p $_siginfo._sifields._sigfault.si_addr — (on Linux) Usually print out invalid memory access location after a segfault. Note that this may print out something bogus if a segfault did not occur. It also seems to sometimes print out 0x0 instead of the actual faulting address. A more tedious but more universal way to find out the faulting address is to examine the instruction that triggered the segfault with x/i $rip, and the register values it is using with info registers.
+p $_siginfo._sifields._sigfault.si_addr � (on Linux) Usually print out invalid memory access location after a segfault. Note that this may print out something bogus if a segfault did not occur. It also seems to sometimes print out 0x0 instead of the actual faulting address. A more tedious but more universal way to find out the faulting address is to examine the instruction that triggered the segfault with x/i $rip, and the register values it is using with info registers.
 
+pdf
+pdfunite source1.pdf source2.pdf merged_output.pdf
