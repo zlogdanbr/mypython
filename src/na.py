@@ -75,19 +75,30 @@ def print_regression( X, y, pol_reg, poly_reg, the_title, x_l, y_l ):
     plt.ylabel(y_l)
     plt.show()  
 
-def do_pol_reg( filename, msg  ):
+def do_pol_reg( t, y, msg, level  ):
 
-    t, y = read_data( filename ) 
-    pol_reg,poly_reg = pol_regression(  y, t, 11 )
-    
-    print_regression( t, y, pol_reg, poly_reg, "Cases Corona", "days", "Cases" )
+    print("[Polinomial regression level: {} ]".format( level ) )
+    pol_reg,poly_reg = pol_regression(  y, t, level )   
     y_poly_pred = pol_reg.predict(poly_reg.fit_transform( t ))
     show_error( y, y_poly_pred )
     ayear = pd.DataFrame( [ i for i in range( 1,360 ) ] ) 
     ys = pol_reg.predict( poly_reg.fit_transform( ayear ))
     
-    print("Maximum cases ( {} ) estimated: {} at {} days".format( msg, ys.max(), ys.argmax() + 1) )    
+    print("Maximum cases ( {} ) estimated: {} at {} days.".format( msg, ys.max(), ys.argmax() + 1) )
+    #print_regression( t, y, pol_reg, poly_reg, "Cases Corona", "days", "Cases" )    
     
+
+def find_min_error( t, y ):
+    
+    best_fit = []
+    for level in range(1,20):
+        pol_reg,poly_reg = pol_regression(  y, t, level )   
+        y_poly_pred = pol_reg.predict(poly_reg.fit_transform( t ))
+        best_fit.append( np.sqrt(mean_squared_error(y,y_poly_pred)))
+        
+    return best_fit.index( min(best_fit) ) + 1
+
+  
 def main(argv):
 
     os.system('cls')
@@ -98,29 +109,17 @@ def main(argv):
        
     filename = argv[1]
     option   = argv[2]
-    
-    
-          
+            
     if (  os.path.exists(filename) == False ):
     
         print("csv file does not exist..")
         return
-        
-    if option == "p1":
     
-        t, y = read_data( filename ) 
-        print_data( y, t , 'r', "Brazil", "time", "cases")
-        
-    elif option == "p2":
-    
-        t, bra, usa = read_data_ex( filename, "Brazil", "Iran" )
-        print_data_ex( bra, usa, t, "Brazil and Iran", "time", "cases" ) 
-        
-    else:
-        do_pol_reg( filename, option )
-    
+    t, y = read_data( filename )
+    n = find_min_error ( t, y )  
+    do_pol_reg( t, y, option , n )
 
-                       
+                         
         
                  
 if __name__ == '__main__':
