@@ -1,8 +1,3 @@
-"""
-Project validate batch files
-author: Daniel V. Gomes/e5030079
-March 2019
-"""  
 
 import cx_Oracle
 import pprint
@@ -112,7 +107,6 @@ class mydatabaser:
         self.con.close()
 
 
-# python mydb.py 'eglclrmasqa/eglclrmasqa@10.99.168.30/orcl12' 'select * from EGL_ARBITRO'
 def main(argv):
 
     if os.name == 'nt':
