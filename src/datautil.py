@@ -1,6 +1,6 @@
 """
 
-author: Daniel V. Gomes/e5030079
+author: Daniel V. Gomes
 March 2019
 """  
 
