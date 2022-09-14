@@ -175,7 +175,7 @@ class toolgui(wx.Frame):
 def main():
 
     app = wx.App()
-    myview = toolgui(None, title='Eglobal API Testing Tool')
+    myview = toolgui(None, title='API Testing Tool')
     myview.Show()
     app.MainLoop()
  
