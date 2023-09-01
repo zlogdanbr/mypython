@@ -13,9 +13,9 @@ from datetime import datetime
 
 
 
-"""
+'''
 Creates a csv file that can be used by Machine learning algorithms
-"""
+'''
 class mycsvfile:
     file = None
     
@@ -38,9 +38,9 @@ class mycsvfile:
             self.file.close()       
         
         
-"""
+'''
 Application error log
-"""
+'''
 class errorlog:
     
     filename = ""
@@ -83,9 +83,9 @@ class errorlog:
         if self.myerrorfile != None:
             self.myerrorfile.close()
         
-"""
+'''
 Split file into smaller chuncks
-"""
+'''
 class filespliter:
     f = None
     filename = None
@@ -131,10 +131,10 @@ class filespliter:
         else:
             return None     
  
-"""
+'''
 This class is used to open a file, read its lines and return
 a list with all the lines
-"""
+'''
 class FileOpener:
 
     f = None
@@ -204,7 +204,8 @@ def file_ext_iterator( dir, ext, full_path = False ):
         for name in files:
             fext = getextension(name)
             file_name, t= os.path.splitext(name)
-            if ( fext == ext):
+            
+            if fext in ext:
                 if full_path:
                     yield root + file_name + t
                 else:
@@ -239,7 +240,7 @@ to ext_final
 
 O(n^2) be carefull
 '''        
-def convert_batch( dir, ext_orig, ext_final):
+def convert_batch( dir, ext_orig, ext_final,outdir):
 
     for root, dirs, files in os.walk(dir):
         for name in files:
@@ -247,7 +248,7 @@ def convert_batch( dir, ext_orig, ext_final):
             file_name, t= os.path.splitext(name)
             if ( fext == ext_orig):
                 final = "{}.{}".format(file_name, ext_final)
-                convert_files(root+"\\"+name,OUT_DIR+"\\"+final)
+                convert_files(root+"\\"+name,outdir+"\\"+final)
 
 '''
 changes the extension all files under the directory dir ( including subfolders ) 
@@ -323,5 +324,12 @@ List files with extensions ext under folder
 def listmyfiles(folder,ext):
     for file in file_ext_iterator(folder,ext):
         print(file)
+        
+'''
+List files with extensions ext under folder
+'''    
+def listmyfilesfull(folder,ext):
+    for file in file_ext_iterator(folder,ext,True):
+        print(file)        
 
                
