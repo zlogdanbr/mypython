@@ -36,19 +36,25 @@ from utildvg import *
 CALIBRE_FOLDER = "C:\\Users\\Administrador\\Biblioteca do calibre"
 KINDLE_FOLDER = "C:\\Users\\Administrador\\Documents\\My Kindle Content"
 OUT_DIR = "C:\\Users\Administrador\\Documents\\tmp"
+EPUBOR = "C:\\Users\\Administrador\\AllDRMRemoval"
 
 ZIPEXT = "zip"
 CBZEXT = "cbz"
 AZWEXT = "azw"
 AZWEXT3 = "azw3"
 EPUBEXT = "epub"
+PDFEXT = "pdf"
 
 def main(argv):
     #copyfiles(CALIBRE_FOLDER,AZWEXT,OUT_DIR)
     #convert_batch(CALIBRE_FOLDER,AZWEXT3,ZIPEXT)
     #change_extension(OUT_DIR,ZIPEXT,CBZEXT)
     #remove_files(OUT_DIR,EPUBEXT)  
-    listmyfiles("D:\\Documentos","epub")
+    listmyfilesfull("C:\\Users\\Administrador\\OneDrive",[EPUBEXT,CBZEXT,PDFEXT])
+    #convert_batch(KINDLE_FOLDER,AZWEXT,AZWEXT3,OUT_DIR)
+    #remove_files(CALIBRE_FOLDER,PDFEXT)
+    #convert_batch(OUT_DIR,AZWEXT,PDFEXT,OUT_DIR)
+    #convert_batch(OUT_DIR,AZWEXT3,PDFEXT,OUT_DIR)
     pass
 
 if __name__ == '__main__':
