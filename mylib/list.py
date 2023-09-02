@@ -40,6 +40,11 @@ convert_batch(KINDLE_FOLDER,AZWEXT,AZWEXT3,OUT_DIR)
 remove_files(CALIBRE_FOLDER,PDFEXT)
 convert_batch(OUT_DIR,AZWEXT,PDFEXT,OUT_DIR)
 convert_batch(OUT_DIR,AZWEXT3,PDFEXT,OUT_DIR)
+
+Creates a list of audio files 
+MUSIC_MASK   = ["mp3","flac", "ogg"]
+getalbums(MUSIC,MUSIC_MASK,OUT_DIR)
+    
 '''
 
 from fileutilbr import *
