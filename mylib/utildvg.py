@@ -10,7 +10,7 @@ import pprint
 import binascii
 import traceback
 from datetime import datetime
-
+import music_tag
 
 
 '''
@@ -207,9 +207,33 @@ def file_ext_iterator( dir, ext, full_path = False ):
             
             if fext in ext:
                 if full_path:
-                    yield root + file_name + t
+                    yield root + "\\" + file_name + t
                 else:
                     yield file_name
+ 
+'''
+Iterates over directory dir and lists the first mp3 or media file contained in the mask
+ext
+O(n^2) be carefull
+''' 
+def file_ext_iterator2( dir, ext, full_path = False ):
+    for root, dirs, files in os.walk(dir):
+        i = 0
+        for name in files:
+            
+            if i > 0:
+                break
+            i = i + 1
+            
+            fext = getextension(name)
+            file_name, t= os.path.splitext(name)
+            
+            if fext in ext:
+                if full_path:
+                    yield root + "\\" + file_name + t
+                else:
+                    yield file_name
+                    
 '''
 calls ebook-convert.exe to convert myfile.input_format to myfile.output_format
 '''
@@ -332,4 +356,28 @@ def listmyfilesfull(folder,ext):
     for file in file_ext_iterator(folder,ext,True):
         print(file)        
 
-               
+
+'''
+List albums and artists from your cd collection at the path folder
+extension mask ext and saves the outputfile to out_dir
+'''    
+def getalbums(folder,ext,out_dir):
+    
+    collection = {}
+    
+    with open(out_dir+"\\music_list.txt", 'w') as fl:   
+        
+        for file in file_ext_iterator2(folder,ext,True):
+            
+            try:
+                f = music_tag.load_file(file)                
+            except:                
+                continue
+                
+            artist = f['artist']
+            album = f['album']
+            nalbums = f['totaldiscs']           
+            line = "{}-{} disk[ {}  albums ]".format(artist,album,nalbums)               
+            fl.write(line)
+            fl.write('\n')
+            
