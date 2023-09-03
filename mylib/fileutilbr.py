@@ -11,7 +11,7 @@ import binascii
 import traceback
 from datetime import datetime
 import music_tag
-
+import eyed3
 
 '''
 Creates a csv file that can be used by Machine learning algorithms
@@ -363,7 +363,9 @@ extension mask ext and saves the outputfile to out_dir
 '''    
 def getalbums(folder,ext,out_dir):
     
-    collection = {}
+    prev_album = ""
+    prev_artist = ""
+    cnt = 1
     
     with open(out_dir+"\\music_list.txt", 'w') as fl:   
         
@@ -375,9 +377,31 @@ def getalbums(folder,ext,out_dir):
                 continue
                 
             artist = f['artist']
+            
+            if len(artist) == 0:
+                continue
+                
             album = f['album']
-            nalbums = f['totaldiscs']           
-            line = "{}-{} disk[ {}  albums ]".format(artist,album,nalbums)               
+            
+            if prev_album == str(f['album']) and prev_artist == str(f['artist']):
+                cnt = cnt + 1
+            else:
+                cnt = 1
+             
+            if prev_artist != str(f['artist']):
+                fl.write("[ {} ]".format(str(f['artist'])))
+                fl.write('\n')                
+                        
+            prev_album = str(f['album'])
+            prev_artist = str(f['artist'])
+                
+            line = "\t {}-'{}' album #{}".format(artist,album,cnt)               
             fl.write(line)
             fl.write('\n')
             
+
+#------------------------------end of file -------------------------------------                
+                
+
+            
+             
