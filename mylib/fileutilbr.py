@@ -1,3 +1,6 @@
+'''
+pip install music_tag
+'''
 import sys
 import os
 import pathlib
@@ -11,7 +14,6 @@ import binascii
 import traceback
 from datetime import datetime
 import music_tag
-import eyed3
 
 '''
 Creates a csv file that can be used by Machine learning algorithms
