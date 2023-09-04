@@ -1,7 +1,27 @@
 '''
+_____________________________________________________________________________________________
+All my python useful functions/classes are here. 
+I only use this for hobby purposes.
+I am a c++ programmer by profession but python is my favorite language.
+
+- HANDLE FILES
+- HANDLE NETWORKING
+- HANDLE THREADS/PROCESS/OS
+- HANDLE FILE ITERATORS
+- HANDLE EBOOKS AND COMICS
+- HANDLE DIGITAL MEDIA 
+
 Required libs:
 
 pip install music_tag
+
+All you have to do is to include the file fileutilbr.py
+or 
+from fileutilbr import *
+
+
+_____________________________________________________________________________________________
+
 '''
 import sys
 import os
