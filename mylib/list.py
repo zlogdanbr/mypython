@@ -55,6 +55,7 @@ OUT_DIR = "C:\\Users\Administrador\\Documents\\tmp"
 EPUBOR = "C:\\Users\\Administrador\\AllDRMRemoval"
 ONEDRIVE= "C:\\Users\\Administrador\\OneDrive"
 MUSIC = "C:\\Users\\Administrador\\Music"
+VILE = "C:\\Users\\Administrador\\Music\\Vile"
 
 ZIPEXT = "zip"
 CBZEXT = "cbz"
@@ -65,7 +66,7 @@ PDFEXT = "pdf"
 
 DOCUMENT_MASK = [EPUBEXT,CBZEXT,PDFEXT]
 IMAGES_MASK   = ["gif","jpg", "bmp", "tiff", "png"]
-MUSIC_MASK   = ["mp3","flac", "ogg"]
+MUSIC_MASK   = ["mp3","flac", "ogg", "MP3","FLAC","OGG"]
 
 def main(argv):
  

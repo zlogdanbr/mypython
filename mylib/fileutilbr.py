@@ -222,16 +222,16 @@ def file_ext_iterator2( dir, ext, full_path = False ):
     for root, dirs, files in os.walk(dir):
         i = 0
         for name in files:
-            
-            if i > 0:
-                break
-            i = i + 1
-            
+               
             fext = getextension(name)
             file_name, t= os.path.splitext(name)
             
             if fext in ext:
                 if full_path:
+                    if i > 0:
+                        i = 0;
+                        break;
+                    i = i + 1                
                     yield root + "\\" + file_name + t
                 else:
                     yield file_name
@@ -375,29 +375,34 @@ def getalbums(folder,ext,out_dir):
             
             try:
                 f = music_tag.load_file(file)                
-            except:                
+            except:   
+                print("Error reading {}".format(file))
                 continue
                 
-            artist = f['artist']
+            artist = str(f['artist'])
             
             if len(artist) == 0:
-                continue
+                continue            
                 
             album = f['album']
             
-            if prev_album == str(f['album']) and prev_artist == str(f['artist']):
+            if prev_album == str(f['album']):
                 cnt = cnt + 1
             else:
                 cnt = 1
              
             if prev_artist != str(f['artist']):
+                fl.write("__________________________________________________________________________________")
+                fl.write('\n\n') 
                 fl.write("[ {} ]".format(str(f['artist'])))
-                fl.write('\n')                
+                fl.write('\n') 
+                fl.write("__________________________________________________________________________________")
+                fl.write('\n\n') 
                         
             prev_album = str(f['album'])
             prev_artist = str(f['artist'])
                 
-            line = "\t {}-'{}' album #{}".format(artist,album,cnt)               
+            line = "\t{}-'{}' album #{}".format(artist,album,cnt)               
             fl.write(line)
             fl.write('\n')
             
