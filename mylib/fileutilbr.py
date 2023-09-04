@@ -36,6 +36,9 @@ import binascii
 import traceback
 from datetime import datetime
 import music_tag
+from mutagen.mp3 import MP3
+from mutagen.oggvorbis import OggVorbis
+from mutagen.flac import FLAC
 
 ################################## HANDLE FILES ############################################
 '''
@@ -364,9 +367,9 @@ def file_ext_iterator2( dir, ext, full_path = False ):
                         i = 0;
                         break;
                     i = i + 1                
-                    yield root + "\\" + file_name + t
+                    yield root + "\\" + file_name + t,fext
                 else:
-                    yield file_name
+                    yield file_name,fext
  
 ################################## HANDLE EBOOKS AND COMICS ############################################ 
 '''
@@ -401,6 +404,20 @@ def convert_batch( dir, ext_orig, ext_final,outdir):
  
 ################################## HANDLE DIGITAL MEDIA ############################################ 
 
+
+def get_file_info( musicfile, ext ):
+        f = None
+        if ext == "mp3":
+            f = MP3(musicfile)
+        elif ext == "ogg":
+            f = OggVorbis(musicfile)
+        elif ext == "flac":
+            f = FLAC(musicfile)
+            
+        info = "bit rate[{}]".format( (f.info.bitrate/1000))
+        
+        return info
+    
 '''
 List albums and artists from your cd collection at the path folder
 extension mask ext and saves the outputfile to out_dir
@@ -413,18 +430,24 @@ def getalbums(folder,ext,out_dir):
     
     with open(out_dir+"\\music_list.txt", 'w') as fl:   
         
-        for file in file_ext_iterator2(folder,ext,True):
-            
+        for file,ext in file_ext_iterator2(folder,ext,True):
+            info = ""
             try:
                 f = music_tag.load_file(file)                
             except:   
                 print("Error reading {}".format(file))
                 continue
+            
+            try:
+                info = str(get_file_info(file,ext))
+            except:
+                info = "N/A"
                 
             artist = str(f['artist'])
             
             if len(artist) == 0:
-                continue            
+                continue    
+
                 
             album = f['album']
             
@@ -444,7 +467,7 @@ def getalbums(folder,ext,out_dir):
             prev_album = str(f['album'])
             prev_artist = str(f['artist'])
                 
-            line = "\t{}-'{}' album #{}".format(artist,album,cnt)               
+            line = "\t{}-'{}' disc#{} filetype[{} - {}]".format(artist,album,cnt,ext,info)               
             fl.write(line)
             fl.write('\n')
             

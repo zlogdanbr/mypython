@@ -78,7 +78,7 @@ MUSIC_MASK   = ["mp3","flac", "ogg", "MP3","FLAC","OGG"]
 #main program-------------------------------------------------------------------
 def main(argv):
     #in this example I call getalbums
-    listmyfilesfull(PYBOOKS,DOCUMENT_MASK)
+    getalbums(MUSIC,MUSIC_MASK,OUT_DIR)
 #tells the python interpreter we handle this as a program-----------------------
 if __name__ == '__main__':    
     main(sys.argv)
