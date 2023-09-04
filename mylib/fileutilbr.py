@@ -78,32 +78,32 @@ class errorlog:
         date_time = now.strftime("%m_%d_%Y_%H_%M_%S.log")
         self.filename = "../log/errlog." + date_time
         
-    def getName( self ):
+    def getname( self ):
         return self.filename
     
-    def getStamp( self ):
+    def getstamp( self ):
         now = datetime.now() # current date and time
         return  now.strftime("%m/%d/%Y %H:%M:%S - ")       
         
-    def writeTo( self, msg ):      
+    def writeto( self, msg ):      
         if self.myerrorfile == None:
             self.myerrorfile = open( self.filename, 'wt')
         outmsg = msg + "\n"
         self.myerrorfile.write( outmsg  )
 
-    def writeStuff( self, stuff ):      
+    def writestuff( self, stuff ):      
         if self.myerrorfile == None:
             self.myerrorfile = open( self.filename, 'wt')
         self.myerrorfile.write( stuff  )
         
-    def writeToRow( self, row ):      
+    def writetorow( self, row ):      
         #self.myerrorfile.write( self.getStamp() ) 
         for field in row:
             tobewriten = " {} ".format( field )
             self.myerrorfile.write( tobewriten )
         self.myerrorfile.write("\n")
         
-    def writeToFull( self, stuff ):      
+    def writetofull( self, stuff ):      
         self.myerrorfile.write( self.getStamp() ) 
         self.myerrorfile.write( stuff )
           
@@ -124,19 +124,19 @@ class filespliter:
     def __init__( self, filename ):
         self.filename = filename   
         
-    def getSize(self):
+    def getsize(self):
         st = os.stat(self.filename)
         return (st.st_size)
 
-    def getFileLists( self ):
+    def getfilelists( self ):
         return self.listofiles
 
-    def deleteAllTmpFiles( self ):
+    def deletealltmpfiles( self ):
         for file in self.listofiles:
             #print( "Removing {}".format( file ))
             os.remove( file)
 
-    def createFile( self, chunk, n ):
+    def createfile( self, chunk, n ):
         nameof = "split_" + str(n ) + "_" + self.filename
         tmpfile = open( nameof, 'wb')
         print( "Creating {}".format( nameof ) )
@@ -153,7 +153,7 @@ class filespliter:
             print(self.maxfiles)
             while ( filescnt <= self.maxfiles ):
                 chunk = self.f.read(maxcrit)
-                self.createFile( chunk, filescnt  )   
+                self.createfile( chunk, filescnt  )   
                 filescnt = filescnt + 1
             self.f.close()
         else:
@@ -173,10 +173,10 @@ class FileOpener:
     def __init__( self, filename ):
         self.filename = filename
     
-    def Close( self ):
+    def close( self ):
         self.f.close()
         
-    def OpenFile(self):       
+    def openfile(self):       
         if os.path.exists(self.filename):
             self.f = open(self.filename, 'rt', errors='ignore')
             self.allow = True
@@ -184,7 +184,7 @@ class FileOpener:
         else:
             return None   
     
-    def ReadAllFile( self ):
+    def readallfile( self ):
         if self.allow == True:
             data = self.f.read()
             return data

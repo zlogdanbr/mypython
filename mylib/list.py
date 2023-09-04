@@ -63,7 +63,8 @@ OUT_DIR = "C:\\Users\Administrador\\Documents\\tmp"
 EPUBOR = "C:\\Users\\Administrador\\AllDRMRemoval"
 ONEDRIVE= "C:\\Users\\Administrador\\OneDrive"
 MUSIC = "C:\\Users\\Administrador\\Music"
-PYBOOKS = "C:\\Users\\Administrador\\OneDrive\Tutorials And Important Files\\Programming\\Python"
+PYBOOKS = "C:\\Users\\Administrador\\OneDrive\\Tutorials And Important Files\\Programming\\Python"
+FICBOOKS = "C:\\Users\\Administrador\\OneDrive\\ebooks\\Fiction"
 #extensions for files-----------------------------------------------------------
 ZIPEXT = "zip"
 CBZEXT = "cbz"
@@ -77,8 +78,7 @@ IMAGES_MASK   = ["gif","jpg", "bmp", "tiff", "png"]
 MUSIC_MASK   = ["mp3","flac", "ogg", "MP3","FLAC","OGG"]
 #main program-------------------------------------------------------------------
 def main(argv):
-    #in this example I call getalbums
-    getalbums(MUSIC,MUSIC_MASK,OUT_DIR)
+    listmyfilesfull(FICBOOKS,[EPUBEXT])
 #tells the python interpreter we handle this as a program-----------------------
 if __name__ == '__main__':    
     main(sys.argv)
