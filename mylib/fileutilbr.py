@@ -1,4 +1,6 @@
 '''
+Required libs:
+
 pip install music_tag
 '''
 import sys
@@ -15,6 +17,7 @@ import traceback
 from datetime import datetime
 import music_tag
 
+################################## HANDLE FILES ############################################
 '''
 Creates a csv file that can be used by Machine learning algorithms
 '''
@@ -163,133 +166,6 @@ class FileOpener:
             data = self.f.read()
             return data
 
-
-def monitorPorts( ipaddress, port_init, port_end  ):
-
-    portInfo = {}
-    for port in range(int(port_init), int(port_end)+1):
-        sock= socket.socket(socket.AF_INET,socket.SOCK_STREAM)
-        sock.settimeout(5)
-        result = sock.connect_ex((ipaddress,port))
-        if result == 0:
-            portInfo[ port ] = "Open"
-        else:
-            portInfo[ port ] = "Closed"
-        sock.close()
-     
-    return portInfo
-    
-def sendMessage( host, port, BUFFER_SIZE , msg ):
-    
-    with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as socket_tcp:
-        socket_tcp.connect((host, port))
-        # We convert str to bytes
-        socket_tcp.send( msg.encode('utf-8') )
-        data = socket_tcp.recv(BUFFER_SIZE)
- 
-def monitorPortsInterface(): 
-    ipaddress =input("Enter ip address or domain for port scanning:")
-    port_init= input("Enter first port: ")
-    port_end = input("Enter last port: ")
-    monitorPorts( ipaddress, port_init, port_end)
-
-'''
-Iterates over directory dir and lists all files with extension ext , by default
-the fullpath is not returned
-Ex:
-    for pdf in file_ext_iterator("D:\\Documentos\\Technical\\Physics","pdf"):
-        print(pdf)
-O(n^2) be carefull
-'''
-def file_ext_iterator( dir, ext, full_path = False ):
-    for root, dirs, files in os.walk(dir):
-        for name in files:
-            fext = getextension(name)
-            file_name, t= os.path.splitext(name)
-            
-            if fext in ext:
-                if full_path:
-                    yield root + "\\" + file_name + t
-                else:
-                    yield file_name
- 
-'''
-Iterates over directory dir and lists the first mp3 or media file contained in the mask
-ext
-O(n^2) be carefull
-''' 
-def file_ext_iterator2( dir, ext, full_path = False ):
-    for root, dirs, files in os.walk(dir):
-        i = 0
-        for name in files:
-               
-            fext = getextension(name)
-            file_name, t= os.path.splitext(name)
-            
-            if fext in ext:
-                if full_path:
-                    if i > 0:
-                        i = 0;
-                        break;
-                    i = i + 1                
-                    yield root + "\\" + file_name + t
-                else:
-                    yield file_name
-                    
-'''
-calls ebook-convert.exe to convert myfile.input_format to myfile.output_format
-'''
-def convert_files( orig, dest ):
-
-    print("Running ebook-convert for "+orig+" "+dest)
-    cmd = []
-    cmd.append("ebook-convert")
-    cmd.append(orig)
-    cmd.append(dest)
-    run_win_cmd(cmd)
-
-'''
-executes a commmand line cmd 
-'''
-def run_win_cmd(cmd):
-
-    result = subprocess.run(cmd, shell=True, capture_output=True, encoding='UTF-8')
-    
-    if len(result.stderr) > 0:   
-        print(result.stderr)
-    else:
-        print(result.stdout)
-        
-'''
-Using calibre executable to convert all files that match the original ext ext_orig 
-to ext_final
-
-O(n^2) be carefull
-'''        
-def convert_batch( dir, ext_orig, ext_final,outdir):
-
-    for root, dirs, files in os.walk(dir):
-        for name in files:
-            fext = getextension(name)
-            file_name, t= os.path.splitext(name)
-            if ( fext == ext_orig):
-                final = "{}.{}".format(file_name, ext_final)
-                convert_files(root+"\\"+name,outdir+"\\"+final)
-
-'''
-changes the extension all files under the directory dir ( including subfolders ) 
-from ext to myextfinal
-O(n^2) be carefull
-'''
-def change_extension(dir,ext,myextfinal):
-
-    for root, dirs, files in os.walk(dir):
-        for name in files:
-            fext = getextension(name)
-            if ( fext == ext):
-                print("Changing {}/{}".format(root,name))
-                changeExt(root + "/" + name,myextfinal) 
- 
 '''
 copy  all files under the directory dir ( including subfolders ) who extension is ext
 O(n^2) be carefull
@@ -356,8 +232,154 @@ List files with extensions ext under folder
 '''    
 def listmyfilesfull(folder,ext):
     for file in file_ext_iterator(folder,ext,True):
-        print(file)        
+        print(file)       
+        
+################################## HANDLE NETWORKING ############################################
 
+'''
+ Just check if ports are open or closed in the range
+'''
+def monitorPorts( ipaddress, port_init, port_end  ):
+
+    portInfo = {}
+    for port in range(int(port_init), int(port_end)+1):
+        sock= socket.socket(socket.AF_INET,socket.SOCK_STREAM)
+        sock.settimeout(5)
+        result = sock.connect_ex((ipaddress,port))
+        if result == 0:
+            portInfo[ port ] = "Open"
+        else:
+            portInfo[ port ] = "Closed"
+        sock.close()
+     
+    return portInfo
+    
+'''
+ Sends a message using a socket
+'''
+def sendMessage( host, port, BUFFER_SIZE , msg ):
+    
+    with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as socket_tcp:
+        socket_tcp.connect((host, port))
+        # We convert str to bytes
+        socket_tcp.send( msg.encode('utf-8') )
+        data = socket_tcp.recv(BUFFER_SIZE)
+
+'''
+Help function for monitorPorts
+'''
+def monitorPortsInterface(): 
+    ipaddress =input("Enter ip address or domain for port scanning:")
+    port_init= input("Enter first port: ")
+    port_end = input("Enter last port: ")
+    monitorPorts( ipaddress, port_init, port_end)
+    
+
+################################## HANDLE THREADS/PROCESS/OS ############################################   
+'''
+executes a commmand line cmd 
+'''
+def run_win_cmd(cmd):
+
+    result = subprocess.run(cmd, shell=True, capture_output=True, encoding='UTF-8')
+    
+    if len(result.stderr) > 0:   
+        print(result.stderr)
+    else:
+        print(result.stdout)    
+
+
+################################## HANDLE FILE ITERATORS ############################################
+
+'''
+Iterates over directory dir and lists all files with extension ext , by default
+the fullpath is not returned
+Ex:
+    for pdf in file_ext_iterator("D:\\Documentos\\Technical\\Physics","pdf"):
+        print(pdf)
+O(n^2) be carefull
+'''
+def file_ext_iterator( dir, ext, full_path = False ):
+    for root, dirs, files in os.walk(dir):
+        for name in files:
+            fext = getextension(name)
+            file_name, t= os.path.splitext(name)
+            
+            if fext in ext:
+                if full_path:
+                    yield root + "\\" + file_name + t
+                else:
+                    yield file_name
+ 
+'''
+Iterates over directory dir and lists the first mp3 or media file contained in the mask
+ext
+O(n^2) be carefull
+''' 
+def file_ext_iterator2( dir, ext, full_path = False ):
+    for root, dirs, files in os.walk(dir):
+        i = 0
+        for name in files:
+               
+            fext = getextension(name)
+            file_name, t= os.path.splitext(name)
+            
+            if fext in ext:
+                if full_path:
+                    if i > 0:
+                        i = 0;
+                        break;
+                    i = i + 1                
+                    yield root + "\\" + file_name + t
+                else:
+                    yield file_name
+ 
+################################## HANDLE EBOOKS AND COMICS ############################################ 
+'''
+calls ebook-convert.exe to convert myfile.input_format to myfile.output_format
+'''
+def convert_files( orig, dest ):
+
+    print("Running ebook-convert for "+orig+" "+dest)
+    cmd = []
+    cmd.append("ebook-convert")
+    cmd.append(orig)
+    cmd.append(dest)
+    run_win_cmd(cmd)
+
+        
+'''
+Using calibre executable to convert all files that match the original ext ext_orig 
+to ext_final
+
+O(n^2) be carefull
+'''        
+def convert_batch( dir, ext_orig, ext_final,outdir):
+
+    for root, dirs, files in os.walk(dir):
+        for name in files:
+            fext = getextension(name)
+            file_name, t= os.path.splitext(name)
+            if ( fext == ext_orig):
+                final = "{}.{}".format(file_name, ext_final)
+                convert_files(root+"\\"+name,outdir+"\\"+final)
+
+'''
+changes the extension all files under the directory dir ( including subfolders ) 
+from ext to myextfinal
+O(n^2) be carefull
+'''
+def change_extension(dir,ext,myextfinal):
+
+    for root, dirs, files in os.walk(dir):
+        for name in files:
+            fext = getextension(name)
+            if ( fext == ext):
+                print("Changing {}/{}".format(root,name))
+                changeExt(root + "/" + name,myextfinal) 
+ 
+ 
+################################## HANDLE DIGITAL MEDIA ############################################ 
 
 '''
 List albums and artists from your cd collection at the path folder
@@ -407,7 +429,7 @@ def getalbums(folder,ext,out_dir):
             fl.write('\n')
             
 
-#------------------------------end of file -------------------------------------                
+################################## END OF FILE ############################################          
                 
 
             
