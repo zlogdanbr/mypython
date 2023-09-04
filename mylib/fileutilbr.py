@@ -232,7 +232,21 @@ List files with extensions ext under folder
 '''    
 def listmyfilesfull(folder,ext):
     for file in file_ext_iterator(folder,ext,True):
-        print(file)       
+        print(file)      
+
+'''
+changes the extension all files under the directory dir ( including subfolders ) 
+from ext to myextfinal
+O(n^2) be carefull
+'''
+def change_extension(dir,ext,myextfinal):
+
+    for root, dirs, files in os.walk(dir):
+        for name in files:
+            fext = getextension(name)
+            if ( fext == ext):
+                print("Changing {}/{}".format(root,name))
+                changeExt(root + "/" + name,myextfinal) 
         
 ################################## HANDLE NETWORKING ############################################
 
@@ -364,20 +378,6 @@ def convert_batch( dir, ext_orig, ext_final,outdir):
                 final = "{}.{}".format(file_name, ext_final)
                 convert_files(root+"\\"+name,outdir+"\\"+final)
 
-'''
-changes the extension all files under the directory dir ( including subfolders ) 
-from ext to myextfinal
-O(n^2) be carefull
-'''
-def change_extension(dir,ext,myextfinal):
-
-    for root, dirs, files in os.walk(dir):
-        for name in files:
-            fext = getextension(name)
-            if ( fext == ext):
-                print("Changing {}/{}".format(root,name))
-                changeExt(root + "/" + name,myextfinal) 
- 
  
 ################################## HANDLE DIGITAL MEDIA ############################################ 
 

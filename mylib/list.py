@@ -67,7 +67,7 @@ OUT_DIR = "C:\\Users\Administrador\\Documents\\tmp"
 EPUBOR = "C:\\Users\\Administrador\\AllDRMRemoval"
 ONEDRIVE= "C:\\Users\\Administrador\\OneDrive"
 MUSIC = "C:\\Users\\Administrador\\Music"
-VILE = "C:\\Users\\Administrador\\Music\\Vile"
+PYBOOKS = "C:\\Users\\Administrador\\OneDrive\Tutorials And Important Files\\Programming\\Python"
 #extensions for files-----------------------------------------------------------
 ZIPEXT = "zip"
 CBZEXT = "cbz"
@@ -83,11 +83,10 @@ MUSIC_MASK   = ["mp3","flac", "ogg", "MP3","FLAC","OGG"]
 def main(argv):
 
     #in this example I call getalbums
-    getalbums(MUSIC,MUSIC_MASK,OUT_DIR)
+    listmyfilesfull(PYBOOKS,DOCUMENT_MASK)
 
 #tells the python interpreter we handle this as a program-----------------------
-if __name__ == '__main__':
-
+if __name__ == '__main__':    
     main(sys.argv)
 
 # end of file ------------------------------------------------------------------
