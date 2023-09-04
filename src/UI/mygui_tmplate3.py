@@ -4,7 +4,7 @@ import subprocess
 import time
 import wx
 
-from myth import MyThread
+from th import MyThread
 
 # Define the tab content as classes:
 class TabOne(wx.Panel):

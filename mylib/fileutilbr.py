@@ -447,9 +447,8 @@ def getalbums(folder,ext,out_dir):
             
             if len(artist) == 0:
                 continue    
-
                 
-            album = f['album']
+            album = str(f['album'])
             
             if prev_album == str(f['album']):
                 cnt = cnt + 1
@@ -467,7 +466,7 @@ def getalbums(folder,ext,out_dir):
             prev_album = str(f['album'])
             prev_artist = str(f['artist'])
                 
-            line = "\t{}-'{}' disc#{} filetype[{} - {}]".format(artist,album,cnt,ext,info)               
+            line = "'{}' disc#{} filetype[{} - {}]".format(album,cnt,ext,info)               
             fl.write(line)
             fl.write('\n')
             
