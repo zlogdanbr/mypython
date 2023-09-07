@@ -64,7 +64,7 @@ EPUBOR = "C:\\Users\\Administrador\\AllDRMRemoval"
 ONEDRIVE= "C:\\Users\\Administrador\\OneDrive"
 MUSIC = "C:\\Users\\Administrador\\Music"
 PYBOOKS = "C:\\Users\\Administrador\\OneDrive\\Tutorials And Important Files\\Programming\\Python"
-FICBOOKS = "C:\\Users\\Administrador\\OneDrive\\ebooks\\Fiction"
+FICBOOKS = "C:\\Users\\Administrador\\OneDrive\\ebooks\\Fiction\\Fritz Leiber"
 #extensions for files-----------------------------------------------------------
 ZIPEXT = "zip"
 CBZEXT = "cbz"
