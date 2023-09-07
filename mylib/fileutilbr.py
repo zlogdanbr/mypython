@@ -14,7 +14,7 @@ I am a c++ programmer by profession but python is my favorite language.
 Required libs:
 
 pip install music_tag
-pip install epub-meta
+pip3 install ebookmeta
 
 
 All you have to do is to include the file fileutilbr.py
@@ -41,7 +41,7 @@ import music_tag
 from mutagen.mp3 import MP3
 from mutagen.oggvorbis import OggVorbis
 from mutagen.flac import FLAC
-import epub_meta
+import ebookmeta
 
 ################################## HANDLE FILES ############################################
 '''
@@ -405,9 +405,11 @@ def convert_batch( dir, ext_orig, ext_final,outdir):
                 final = "{}.{}".format(file_name, ext_final)
                 convert_files(root+"\\"+name,outdir+"\\"+final)
                 
+
 def getebookmetadata(file):
-    data = epub_meta.get_epub_metadata(file, read_cover_image=True, read_toc=True)
-    print("{} {}".format( str(data.authors[0]), str(data.title)))
+    meta = ebookmeta.get_metadata(file)
+        
+    return meta.author_list[0],meta.title
 
  
 ################################## HANDLE DIGITAL MEDIA ############################################ 
@@ -430,53 +432,92 @@ def get_file_info( musicfile, ext ):
 List albums and artists from your cd collection at the path folder
 extension mask ext and saves the outputfile to out_dir
 '''    
-def getalbums(folder,ext,out_dir):
+def get_media(folder,ext,out_dir,type = 0):
     
     prev_album = ""
     prev_artist = ""
     cnt = 1
     
-    with open(out_dir+"\\music_list.txt", 'w') as fl:   
+    path = 0
+    if type == 0:
+        path = out_dir+"\\music_list.txt"
+    else:
+        path = out_dir+"\\ebooks.txt"
+    
+    with open(path, 'w') as fl:   
         
         for file,ext in file_ext_iterator2(folder,ext,True):
             info = ""
-            try:
-                f = music_tag.load_file(file)                
-            except:   
-                print("Error reading {}".format(file))
-                continue
             
-            try:
-                info = str(get_file_info(file,ext))
-            except:
-                info = "N/A"
+            
+            if type == 0:
+                try:
+                    f = music_tag.load_file(file)                
+                except:   
+                    print("Error reading {}".format(file))
+                    continue
                 
-            artist = str(f['artist'])
-            
-            if len(artist) == 0:
-                continue    
+                try:
+                    info = str(get_file_info(file,ext))
+                except:
+                    info = "N/A"
+                    
+                artist = str(f['artist'])
                 
-            album = str(f['album'])
-            
-            if prev_album == str(f['album']):
-                cnt = cnt + 1
+                if len(artist) == 0:
+                    continue    
+                    
+                album = str(f['album'])
+                
+                if prev_album == str(f['album']):
+                    cnt = cnt + 1
+                else:
+                    cnt = 1
+                 
+                if prev_artist != str(f['artist']):
+                    fl.write("__________________________________________________________________________________")
+                    fl.write('\n\n') 
+                    fl.write("[ {} ]".format(str(f['artist'])))
+                    fl.write('\n') 
+                    fl.write("__________________________________________________________________________________")
+                    fl.write('\n\n') 
+                            
+                prev_album = str(f['album'])
+                prev_artist = str(f['artist'])
+                    
+                line = "'{}' disc#{} filetype[{} - {}]".format(album,cnt,ext,info)               
+                fl.write(line)
+                fl.write('\n')
+                
+            elif type == 1:
+                                        
+                try:                  
+                    author, title = getebookmetadata(file) 
+                except:
+                    print("Error reading: {}".format(file))
+                    continue
+                
+                if prev_album == title:
+                    cnt = cnt + 1
+                else:
+                    cnt = 1
+                 
+                if prev_artist != author:
+                    fl.write("__________________________________________________________________________________")
+                    fl.write('\n\n') 
+                    fl.write("[ {} ]".format(author))
+                    fl.write('\n') 
+                    fl.write("__________________________________________________________________________________")
+                    fl.write('\n\n') 
+                            
+                prev_album = title
+                prev_artist = author
+                    
+                line = "'{}' book {}".format(title,cnt)               
+                fl.write(line)
+                fl.write('\n')               
             else:
-                cnt = 1
-             
-            if prev_artist != str(f['artist']):
-                fl.write("__________________________________________________________________________________")
-                fl.write('\n\n') 
-                fl.write("[ {} ]".format(str(f['artist'])))
-                fl.write('\n') 
-                fl.write("__________________________________________________________________________________")
-                fl.write('\n\n') 
-                        
-            prev_album = str(f['album'])
-            prev_artist = str(f['artist'])
-                
-            line = "'{}' disc#{} filetype[{} - {}]".format(album,cnt,ext,info)               
-            fl.write(line)
-            fl.write('\n')
+                print("Error")
             
 
 ################################## END OF FILE ############################################          

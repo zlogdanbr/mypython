@@ -66,6 +66,7 @@ MUSIC = "C:\\Users\\Administrador\\Music"
 PYBOOKS = "C:\\Users\\Administrador\\OneDrive\\Tutorials And Important Files\\Programming\\Python"
 FICBOOKS = "C:\\Users\\Administrador\\OneDrive\\ebooks\\Fiction"
 COMICS = "C:\\Users\\Administrador\\OneDrive\\Comics"
+ONEDRIVE_IMAGE = "C:\\Users\\Administrador\\OneDrive\\Pictures\\Fotos"
 #extensions for files-----------------------------------------------------------
 ZIPEXT = "zip"
 CBZEXT = "cbz"
@@ -87,7 +88,7 @@ COMICS_MASK = [CBZEXT,CBREXT]
 # create functions for the menu
 def run_option1():
     os.system("cls")
-    listmyfilesfull(ONEDRIVE,IMAGES_MASK)
+    listmyfilesfull(ONEDRIVE_IMAGE,IMAGES_MASK)
 
 def run_option2():
     os.system("cls")
@@ -95,7 +96,7 @@ def run_option2():
 
 def run_option3():
     os.system("cls")
-    getalbums(MUSIC,MUSIC_MASK,OUT_DIR)
+    get_media(MUSIC,MUSIC_MASK,OUT_DIR,0)
     
 def run_option4():
     os.system("cls")
@@ -133,6 +134,10 @@ def run_option6():
 def run_option7():
     os.system("cls")
     getebookmetadata("C:\\Users\\Administrador\\OneDrive\\ebooks\\Fiction\\Herman Melville\\Moby Dick (AmazonClassics Edition) (103)\\Moby Dick (AmazonClassics Editi - Herman Melville.epub")
+    
+def run_option8():
+    os.system("cls")
+    get_media(FICBOOKS,[EPUBEXT],OUT_DIR,1)    
 
 def DoExit():
     print("Exiting application")
@@ -145,15 +150,16 @@ def DoDefaultError():
 
 # configure the menu using this dictionary
 meuoptions = { 
-                1:["Listar todos arquivos de imagem do onedrive", run_option1],
-                2:["Mudar a extensão dos arquivos zip para cbz.", run_option2],
-                3:["Criar lista de mp3s por artista e album.", run_option3],
-                4:["Remover pdfs da biblioteca do Calibre", run_option4],    
-                5:["Remove DRM de arquivos kindle", run_option5],
-                6:["Listar arquivos", run_option6],
-                7:["Listar meta data", run_option7],
+                1:[" Listar todos arquivos de imagem do onedrive", run_option1],
+                2:[" Mudar a extensão dos arquivos zip para cbz.", run_option2],
+                3:[" Criar lista de mp3s por artista e album.", run_option3],
+                4:[" Remover pdfs da biblioteca do Calibre", run_option4],    
+                5:[" Remove DRM de arquivos kindle", run_option5],
+                6:[" Listar arquivos", run_option6],
+                7:[" Listar meta data", run_option7],
+                8:[" Criar lista de ebooks", run_option8],                
                 # add other calls here
-                8:["Exit", DoExit]
+                10:["Exit", DoExit]
               }
 
 def runmenu():
