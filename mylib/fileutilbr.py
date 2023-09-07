@@ -444,7 +444,7 @@ def get_media(folder,ext,out_dir,type = 0):
     else:
         path = out_dir+"\\ebooks.txt"
     
-    with open(path, 'w') as fl:   
+    with open(path, 'w', encoding='utf-16') as fl:   
         
         for file,ext in file_ext_iterator2(folder,ext,True):
             info = ""
@@ -513,7 +513,7 @@ def get_media(folder,ext,out_dir,type = 0):
                 prev_album = title
                 prev_artist = author
                     
-                line = "'{}' book {}".format(title,cnt)               
+                line = "'{}'".format(title)               
                 fl.write(line)
                 fl.write('\n')               
             else:
