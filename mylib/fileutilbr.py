@@ -14,6 +14,8 @@ I am a c++ programmer by profession but python is my favorite language.
 Required libs:
 
 pip install music_tag
+pip install epub-meta
+
 
 All you have to do is to include the file fileutilbr.py
 or 
@@ -39,6 +41,7 @@ import music_tag
 from mutagen.mp3 import MP3
 from mutagen.oggvorbis import OggVorbis
 from mutagen.flac import FLAC
+import epub_meta
 
 ################################## HANDLE FILES ############################################
 '''
@@ -271,6 +274,7 @@ def change_extension(dir,ext,myextfinal):
                 print("Changing {}/{}".format(root,name))
                 changeExt(root + "/" + name,myextfinal) 
         
+    
 ################################## HANDLE NETWORKING ############################################
 
 '''
@@ -400,6 +404,10 @@ def convert_batch( dir, ext_orig, ext_final,outdir):
             if ( fext == ext_orig):
                 final = "{}.{}".format(file_name, ext_final)
                 convert_files(root+"\\"+name,outdir+"\\"+final)
+                
+def getebookmetadata(file):
+    data = epub_meta.get_epub_metadata(file, read_cover_image=True, read_toc=True)
+    print("{} {}".format( str(data.authors[0]), str(data.title)))
 
  
 ################################## HANDLE DIGITAL MEDIA ############################################ 

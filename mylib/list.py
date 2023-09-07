@@ -64,22 +64,126 @@ EPUBOR = "C:\\Users\\Administrador\\AllDRMRemoval"
 ONEDRIVE= "C:\\Users\\Administrador\\OneDrive"
 MUSIC = "C:\\Users\\Administrador\\Music"
 PYBOOKS = "C:\\Users\\Administrador\\OneDrive\\Tutorials And Important Files\\Programming\\Python"
-FICBOOKS = "C:\\Users\\Administrador\\OneDrive\\ebooks\\Fiction\\Fritz Leiber"
+FICBOOKS = "C:\\Users\\Administrador\\OneDrive\\ebooks\\Fiction"
+COMICS = "C:\\Users\\Administrador\\OneDrive\\Comics"
 #extensions for files-----------------------------------------------------------
 ZIPEXT = "zip"
 CBZEXT = "cbz"
+CBREXT = "cbr"
 AZWEXT = "azw"
 AZWEXT3 = "azw3"
 EPUBEXT = "epub"
 PDFEXT = "pdf"
+DOCEXT = "doc"
+RTFEXT = "rtf"
 #masks for multiple file processing---------------------------------------------
-DOCUMENT_MASK = [EPUBEXT,CBZEXT,PDFEXT]
+DOCUMENT_MASK = [EPUBEXT,CBZEXT,PDFEXT,DOCEXT,RTFEXT]
 IMAGES_MASK   = ["gif","jpg", "bmp", "tiff", "png"]
 MUSIC_MASK   = ["mp3","flac", "ogg", "MP3","FLAC","OGG"]
+EBOOKS_MASK = [EPUBEXT,CBZEXT,PDFEXT]
+COMICS_MASK = [CBZEXT,CBREXT]
 #main program-------------------------------------------------------------------
+
+# create functions for the menu
+def run_option1():
+    os.system("cls")
+    listmyfilesfull(ONEDRIVE,IMAGES_MASK)
+
+def run_option2():
+    os.system("cls")
+    change_extension(OUT_DIR,ZIPEXT,CBZEXT)
+
+def run_option3():
+    os.system("cls")
+    getalbums(MUSIC,MUSIC_MASK,OUT_DIR)
+    
+def run_option4():
+    os.system("cls")
+    remove_files(CALIBRE_FOLDER,PDFEXT)
+    
+def run_option5():
+    os.system("cls")
+    convert_batch(KINDLE_FOLDER,AZWEXT,AZWEXT3,OUT_DIR)         
+    
+def run_option6():
+    os.system("cls")
+    print("Digite a opção:")
+    print("[1]Listar documentos one drive")
+    print("[2]Listar ebooks one drive")
+    print("[3]Listar quadrinhos one drive")
+
+    
+    ch = -1
+    try:
+        ch=int(input("Digite sua opçao:"))
+    except:
+        ch = -1   
+
+    if   ch == -1:
+        print("Opcao invalida.")
+    elif ch == 1:
+        listmyfilesfull(ONEDRIVE,DOCUMENT_MASK)
+    elif ch == 2:
+        listmyfilesfull(ONEDRIVE,EBOOKS_MASK)
+    elif ch == 3:
+        listmyfilesfull(COMICS,COMICS_MASK)        
+    else:
+        print("Opcao invalida.")
+ 
+def run_option7():
+    os.system("cls")
+    getebookmetadata("C:\\Users\\Administrador\\OneDrive\\ebooks\\Fiction\\Herman Melville\\Moby Dick (AmazonClassics Edition) (103)\\Moby Dick (AmazonClassics Editi - Herman Melville.epub")
+
+def DoExit():
+    print("Exiting application")
+    exit()
+
+def DoDefaultError():
+    os.system("cls")
+    print("Invalid entry")
+
+
+# configure the menu using this dictionary
+meuoptions = { 
+                1:["Listar todos arquivos de imagem do onedrive", run_option1],
+                2:["Mudar a extensão dos arquivos zip para cbz.", run_option2],
+                3:["Criar lista de mp3s por artista e album.", run_option3],
+                4:["Remover pdfs da biblioteca do Calibre", run_option4],    
+                5:["Remove DRM de arquivos kindle", run_option5],
+                6:["Listar arquivos", run_option6],
+                7:["Listar meta data", run_option7],
+                # add other calls here
+                8:["Exit", DoExit]
+              }
+
+def runmenu():
+    
+    while True:
+        os.system("cls")# Linux/unix use "clear"
+
+        print("-------------------------------------------")
+        print("Options:")
+        print("-------------------------------------------")
+        for key,actions in meuoptions.items():
+            print("({})      {}".format(key,actions[0]))           
+        print("-------------------------------------------")       
+        
+        ch = -1
+        try:
+            ch=int(input("Enter your choice: "))
+        except:
+            ch = -1
+        
+        if ch in meuoptions:
+            f = meuoptions[ch][1]
+            f()
+        else:
+            DoDefaultError()
+  
+        input("Press enter to continue.")
+
 def main(argv):
-    listmyfilesfull(FICBOOKS,[EPUBEXT])
-#tells the python interpreter we handle this as a program-----------------------
-if __name__ == '__main__':    
-    main(sys.argv)
-# end of file ------------------------------------------------------------------
+    runmenu()
+                 
+if __name__ == '__main__':
+    main(sys.argv)  
