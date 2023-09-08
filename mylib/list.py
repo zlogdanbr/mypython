@@ -88,7 +88,10 @@ COMICS_MASK = [CBZEXT,CBREXT]
 # create functions for the menu
 def run_option1():
     os.system("cls")
-    listmyfilesfull(ONEDRIVE_IMAGE,IMAGES_MASK)
+    ext_mask = []
+    for ext in getallextensions(ONEDRIVE_IMAGE):
+        ext_mask.append(ext)
+    listmyfilesfull(ONEDRIVE_IMAGE,ext_mask,OUT_DIR)
 
 def run_option2():
     os.system("cls")
@@ -123,21 +126,32 @@ def run_option6():
     if   ch == -1:
         print("Opcao invalida.")
     elif ch == 1:
-        listmyfilesfull(ONEDRIVE,DOCUMENT_MASK)
+        listmyfilesfull(ONEDRIVE,DOCUMENT_MASK,OUT_DIR)
     elif ch == 2:
-        listmyfilesfull(ONEDRIVE,EBOOKS_MASK)
+        listmyfilesfull(ONEDRIVE,EBOOKS_MASK,OUT_DIR)
     elif ch == 3:
-        listmyfilesfull(COMICS,COMICS_MASK)        
+        listmyfilesfull(COMICS,COMICS_MASK,OUT_DIR)        
     else:
         print("Opcao invalida.")
- 
+    
 def run_option7():
     os.system("cls")
-    getebookmetadata("C:\\Users\\Administrador\\OneDrive\\ebooks\\Fiction\\Herman Melville\\Moby Dick (AmazonClassics Edition) (103)\\Moby Dick (AmazonClassics Editi - Herman Melville.epub")
-    
-def run_option8():
-    os.system("cls")
     get_media(FICBOOKS,[EPUBEXT],OUT_DIR,1)    
+ 
+def run_option8():
+    os.system("cls")   
+    printextensions(ONEDRIVE_IMAGE)
+    
+def run_option9():
+    os.system("cls") 
+    ext = input("Extensão:")
+    dest= input("Diretório de destino: ")
+    copyfiles(ONEDRIVE_IMAGE,ext,dest)
+    
+def run_option10():
+    os.system("cls") 
+    ext = input("Extensão:")
+    remove_files(ONEDRIVE_IMAGE,ext)    
 
 def DoExit():
     print("Exiting application")
@@ -156,10 +170,12 @@ meuoptions = {
                 4:[" Remover pdfs da biblioteca do Calibre", run_option4],    
                 5:[" Remove DRM de arquivos kindle", run_option5],
                 6:[" Listar arquivos", run_option6],
-                7:[" Listar meta data", run_option7],
-                8:[" Criar lista de ebooks", run_option8],                
+                7:[" Criar lista de ebooks", run_option7],  
+                8:[" Listar extensões de fotos", run_option8],
+                9:[" Copiar arquivos", run_option9],
+                10:["Remover arquivos", run_option10],
                 # add other calls here
-                10:["Exit", DoExit]
+                11:["Exit", DoExit]
               }
 
 def runmenu():

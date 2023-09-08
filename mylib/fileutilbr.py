@@ -216,8 +216,9 @@ def remove_files(dir,ext):
         for name in files:
             fext = getextension(name)
             full = "{}\{}".format(root,name)
-            if ( fext != ext):                
+            if ( fext == ext):                
                 if os.path.isfile(full):
+                    print("removing {}".format(full))
                     os.remove(full)
 
 '''
@@ -256,9 +257,13 @@ def listmyfiles(folder,ext):
 '''
 List files with extensions ext under folder
 '''    
-def listmyfilesfull(folder,ext):
-    for file in file_ext_iterator(folder,ext,True):
-        print(file)      
+def listmyfilesfull(folder,ext,path):
+    full_path = path + "\\tmp.txt"
+    with open(full_path, 'w', encoding='utf-16') as fl: 
+        for file in file_ext_iterator(folder,ext,True):
+            print(file)  
+            fl.write(file)
+            fl.write("\n")
 
 '''
 changes the extension all files under the directory dir ( including subfolders ) 
@@ -273,7 +278,20 @@ def change_extension(dir,ext,myextfinal):
             if ( fext == ext):
                 print("Changing {}/{}".format(root,name))
                 changeExt(root + "/" + name,myextfinal) 
-        
+                
+
+def getallextensions(dir):
+    extentions = []
+    for root, dirs, files in os.walk(dir):
+        for name in files:
+            fext = getextension(name)
+            if fext not in extentions:
+                extentions.append(fext)
+                yield fext
+                
+def printextensions(dir):
+    for ext in getallextensions(dir):
+        print("extension: {}".format(ext))
     
 ################################## HANDLE NETWORKING ############################################
 
@@ -447,9 +465,11 @@ def get_media(folder,ext,out_dir,type = 0):
     with open(path, 'w', encoding='utf-16') as fl:   
         
         for file,ext in file_ext_iterator2(folder,ext,True):
+            
+            print("processing {} ...".format(file))
+            
             info = ""
-            
-            
+                        
             if type == 0:
                 try:
                     f = music_tag.load_file(file)                
