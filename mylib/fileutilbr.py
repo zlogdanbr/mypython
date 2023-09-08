@@ -260,10 +260,11 @@ List files with extensions ext under folder
 def listmyfilesfull(folder,ext,path):
     full_path = path + "\\tmp.txt"
     with open(full_path, 'w', encoding='utf-16') as fl: 
-        for file in file_ext_iterator(folder,ext,True):
-            print(file)  
-            fl.write(file)
-            fl.write("\n")
+        for file in file_ext_iterator(folder,ext,True):            
+            if file != "":
+                print(file)  
+                fl.write(file)
+                fl.write("\n")
 
 '''
 changes the extension all files under the directory dir ( including subfolders ) 
@@ -350,6 +351,19 @@ def run_win_cmd(cmd):
 
 ################################## HANDLE FILE ITERATORS ############################################
 
+
+def find_file( dir, filename ):
+    for root, dirs, files in os.walk(dir):
+        for name in files:
+            fext = getextension(name)
+            file_name, t = os.path.splitext(name)
+            if filename == file_name + t:
+                print(root + "\\" + file_name + t)
+                return
+    
+    print( filename + " not found" )
+                
+            
 '''
 Iterates over directory dir and lists all files with extension ext , by default
 the fullpath is not returned
@@ -369,6 +383,8 @@ def file_ext_iterator( dir, ext, full_path = False ):
                     yield root + "\\" + file_name + t
                 else:
                     yield file_name
+            else:
+                yield ""
  
 '''
 Iterates over directory dir and lists the first mp3 or media file contained in the mask
@@ -384,6 +400,8 @@ def file_ext_iterator2( dir, ext, full_path = False ):
             file_name, t= os.path.splitext(name)
             
             if fext in ext:
+                #Only need the first file to get meta info
+                #works for audio files and epub
                 if full_path:
                     if i > 0:
                         i = 0;
@@ -452,8 +470,8 @@ extension mask ext and saves the outputfile to out_dir
 '''    
 def get_media(folder,ext,out_dir,type = 0):
     
-    prev_album = ""
-    prev_artist = ""
+    prev_t = ""
+    prev_a = ""
     cnt = 1
     
     path = 0
@@ -483,27 +501,26 @@ def get_media(folder,ext,out_dir,type = 0):
                     info = "N/A"
                     
                 artist = str(f['artist'])
+                album = str(f['album'])
                 
                 if len(artist) == 0:
                     continue    
-                    
-                album = str(f['album'])
-                
-                if prev_album == str(f['album']):
+                                    
+                if prev_t== album:
                     cnt = cnt + 1
                 else:
                     cnt = 1
                  
-                if prev_artist != str(f['artist']):
+                if prev_a != artist:
                     fl.write("__________________________________________________________________________________")
                     fl.write('\n\n') 
-                    fl.write("[ {} ]".format(str(f['artist'])))
+                    fl.write("[ {} ]".format(artist))
                     fl.write('\n') 
                     fl.write("__________________________________________________________________________________")
                     fl.write('\n\n') 
                             
-                prev_album = str(f['album'])
-                prev_artist = str(f['artist'])
+                prev_t = album
+                prev_a = artist
                     
                 line = "'{}' disc#{} filetype[{} - {}]".format(album,cnt,ext,info)               
                 fl.write(line)
@@ -516,13 +533,16 @@ def get_media(folder,ext,out_dir,type = 0):
                 except:
                     print("Error reading: {}".format(file))
                     continue
+                    
+                if len(author) == 0:
+                    continue                        
                 
-                if prev_album == title:
+                if prev_t == title:
                     cnt = cnt + 1
                 else:
                     cnt = 1
                  
-                if prev_artist != author:
+                if prev_a != author:
                     fl.write("__________________________________________________________________________________")
                     fl.write('\n\n') 
                     fl.write("[ {} ]".format(author))
@@ -530,8 +550,8 @@ def get_media(folder,ext,out_dir,type = 0):
                     fl.write("__________________________________________________________________________________")
                     fl.write('\n\n') 
                             
-                prev_album = title
-                prev_artist = author
+                prev_t = title
+                prev_a = author
                     
                 line = "'{}'".format(title)               
                 fl.write(line)

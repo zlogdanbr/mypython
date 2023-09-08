@@ -63,6 +63,7 @@ OUT_DIR = "C:\\Users\Administrador\\Documents\\tmp"
 EPUBOR = "C:\\Users\\Administrador\\AllDRMRemoval"
 ONEDRIVE= "C:\\Users\\Administrador\\OneDrive"
 MUSIC = "C:\\Users\\Administrador\\Music"
+MUSIC_ONEDRIVE= "C:\\Users\\Administrador\\OneDrive\\Music\\"
 PYBOOKS = "C:\\Users\\Administrador\\OneDrive\\Tutorials And Important Files\\Programming\\Python"
 FICBOOKS = "C:\\Users\\Administrador\\OneDrive\\ebooks\\Fiction"
 COMICS = "C:\\Users\\Administrador\\OneDrive\\Comics"
@@ -111,10 +112,13 @@ def run_option5():
     
 def run_option6():
     os.system("cls")
-    print("Digite a opção:")
+    print("Digite a opção:\n")
     print("[1]Listar documentos one drive")
     print("[2]Listar ebooks one drive")
     print("[3]Listar quadrinhos one drive")
+    print("[4]Listar mp3s one drive")
+    print("[5]Busca customizada")
+    print("[6]Busca por arquivo\n")
 
     
     ch = -1
@@ -130,7 +134,17 @@ def run_option6():
     elif ch == 2:
         listmyfilesfull(ONEDRIVE,EBOOKS_MASK,OUT_DIR)
     elif ch == 3:
-        listmyfilesfull(COMICS,COMICS_MASK,OUT_DIR)        
+        listmyfilesfull(COMICS,COMICS_MASK,OUT_DIR) 
+    elif ch == 4:
+        listmyfilesfull(MUSIC_ONEDRIVE,MUSIC_MASK,OUT_DIR)   
+    elif ch == 5:
+        path  = input("Digite caminho: ")
+        ext   = input("Digite extensao: ") 
+        listmyfilesfull(path,[ext],OUT_DIR)  
+    elif ch == 6:
+        path  = input("Digite caminho: ")
+        fil   = input("Nome do arquivo: ")
+        find_file(path,fil)
     else:
         print("Opcao invalida.")
     
