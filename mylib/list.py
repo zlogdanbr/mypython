@@ -96,7 +96,8 @@ def run_option1():
 
 def run_option2():
     os.system("cls")
-    change_extension(OUT_DIR,ZIPEXT,CBZEXT)
+    dir = input("Digite o diretório: ")
+    change_extension(dir,ZIPEXT,CBZEXT)
 
 def run_option3():
     os.system("cls")

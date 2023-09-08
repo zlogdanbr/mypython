@@ -169,10 +169,9 @@ def testQueue():
     size = Q.Size()
      
     for i in range(0,size):
-        print("Element is: {}".format(Q.first()))
-         
-    for i in range(0,size):
+        print("Element {} is: {}".format(i, Q.first()))
         Q.pop()
+                
  
 def testStack():
  
@@ -184,11 +183,9 @@ def testStack():
     S.push(3)
      
     size = S.Size()
-     
+          
     for i in range(0,size):
-        print("Element is: {}".format(S.back()))
-         
-    for i in range(0,size):
+        print("Element {} is: {}".format(i, S.back()))
         S.pop()
          
 def main(argv):
