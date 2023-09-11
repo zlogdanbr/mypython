@@ -56,6 +56,7 @@ ________________________________________________________________________________
 '''
 # imports the functions---------------------------------------------------------
 from brlib.fileutilbr import *
+from brlib.webscrapbr import *
 # sets the paths----------------------------------------------------------------
 CALIBRE_FOLDER = "C:\\Users\\Administrador\\Biblioteca do calibre"
 KINDLE_FOLDER = "C:\\Users\\Administrador\\Documents\\My Kindle Content"
@@ -119,7 +120,8 @@ def run_option6():
     print("[3]Listar quadrinhos one drive")
     print("[4]Listar mp3s one drive")
     print("[5]Busca customizada")
-    print("[6]Busca por arquivo\n")
+    print("[6]Busca por arquivo")
+    print("[7]Listar imagens URL\n")
 
     
     ch = -1
@@ -146,6 +148,9 @@ def run_option6():
         path  = input("Digite caminho: ")
         fil   = input("Nome do arquivo: ")
         find_file(path,fil)
+    elif ch == 7:
+        url1  = input("Digite URL: ")   
+        getAllImagesFromSite(url1)
     else:
         print("Opcao invalida.")
     
