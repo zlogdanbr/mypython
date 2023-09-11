@@ -55,7 +55,7 @@ getalbums(MUSIC,MUSIC_MASK,OUT_DIR)
 _____________________________________________________________________________________________    
 '''
 # imports the functions---------------------------------------------------------
-from fileutilbr import *
+from brlib.fileutilbr import *
 # sets the paths----------------------------------------------------------------
 CALIBRE_FOLDER = "C:\\Users\\Administrador\\Biblioteca do calibre"
 KINDLE_FOLDER = "C:\\Users\\Administrador\\Documents\\My Kindle Content"

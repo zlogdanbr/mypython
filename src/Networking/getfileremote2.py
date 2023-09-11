@@ -4,12 +4,12 @@ import lxml
 from pathlib import Path
 import ntpath
 
-def getInput():
+def getInput(argv):
 
-    if len(sys.argv) > 1:
+    if len(argv) > 1:
         # Get address from command line.
-        address = sys.argv[1]
-        address2 = sys.argv[2]
+        address = argv[1]
+        address2 = argv[2]
     return address,address2
 
 def getHtmlPage( url ):
@@ -74,7 +74,7 @@ def getFullPage( url, name  ):
 # python getstuff.py https://automatetheboringstuff.com/chapter2/ https://automatetheboringstuff.com/images
 def main(argv):
     os.system('clear')
-    url,urlimage = getInput()
+    url,urlimage = getInput(argv)
     getAllImagesFromSite(url,urlimage)
     getFullPage( url, "chapter2.html" )
     

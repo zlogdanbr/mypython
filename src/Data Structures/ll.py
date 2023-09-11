@@ -162,8 +162,8 @@ def testQueue():
     print("Testing my queue")
      
     Q = Queue()
-    Q.push(1)
-    Q.push(2)
+    Q.push(11)
+    Q.push(25)
     Q.push(3)
      
     size = Q.Size()
@@ -178,9 +178,9 @@ def testStack():
     print("Testing my stack")
      
     S = Stack()
-    S.push(1)
+    S.push(10)
     S.push(2)
-    S.push(3)
+    S.push(32)
      
     size = S.Size()
           
