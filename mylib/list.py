@@ -121,7 +121,8 @@ def run_option6():
     print("[4]Listar mp3s one drive")
     print("[5]Busca customizada")
     print("[6]Busca por arquivo")
-    print("[7]Listar imagens URL\n")
+    print("[7]Listar imagens URL")
+    print("[8]Listar extensão de imagens \n")
 
     
     ch = -1
@@ -151,6 +152,8 @@ def run_option6():
     elif ch == 7:
         url1  = input("Digite URL: ")   
         getAllImagesFromSite(url1)
+    elif ch == 8:
+        run_option8()
     else:
         print("Opcao invalida.")
     
@@ -191,7 +194,6 @@ meuoptions = {
                 5:[" Remove DRM de arquivos kindle", run_option5],
                 6:[" Listar arquivos", run_option6],
                 7:[" Criar lista de ebooks", run_option7],  
-                8:[" Listar extensões de fotos", run_option8],
                 9:[" Copiar arquivos", run_option9],
                 10:["Remover arquivos", run_option10],
                 # add other calls here
