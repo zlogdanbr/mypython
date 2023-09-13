@@ -15,6 +15,8 @@ Required libs:
 
 pip install music_tag
 pip3 install ebookmeta
+pip install pandas
+pip install openpyxl
 
 
 All you have to do is to include the file fileutilbr.py
@@ -42,6 +44,7 @@ from mutagen.mp3 import MP3
 from mutagen.oggvorbis import OggVorbis
 from mutagen.flac import FLAC
 import ebookmeta
+import pandas as pd
 
 ################################## HANDLE FILES ############################################
 '''
@@ -336,6 +339,42 @@ def monitorPortsInterface():
     
 
 ################################## HANDLE THREADS/PROCESS/OS ############################################   
+
+def DoDefaultError():
+    os.system("cls")
+    print("Invalid entry") 
+
+def runmenu(menuoptions,header_str="Options:",submenu=False):
+    
+    while True:
+        os.system("cls")# Linux/unix use "clear"
+
+        print("-------------------------------------------")
+        print(header_str)
+        print("-------------------------------------------")
+        for key,actions in menuoptions.items():
+            print("({})      {}".format(key,actions[0]))           
+        print("-------------------------------------------")       
+        
+        ch = -1
+        try:
+            ch=int(input("Enter your choice: "))
+        except:
+            ch = -1
+        
+        if ch in menuoptions:
+            f = menuoptions[ch][1]
+            if submenu == False:                
+                f()                
+            else:
+                ret = f()
+                if ret == "leave":
+                    return
+        else:
+            DoDefaultError()
+  
+        input("Press enter to continue.")
+        
 '''
 executes a commmand line cmd 
 '''
@@ -558,7 +597,13 @@ def get_media(folder,ext,out_dir,type = 0):
                 fl.write('\n')               
             else:
                 print("Error")
-            
+        
+
+def convert_csv_excel(excel_filename):
+    file_name, t = os.path.splitext(excel_filename)
+    read_file_product = pd.read_csv(excel_filename)
+    read_file_product.to_excel (file_name + ".xlsx", index = None, header=True)
+ 
 
 ################################## END OF FILE ############################################          
                 

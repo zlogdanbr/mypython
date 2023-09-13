@@ -110,124 +110,117 @@ def run_option4():
     
 def run_option5():
     os.system("cls")
-    convert_batch(KINDLE_FOLDER,AZWEXT,AZWEXT3,OUT_DIR)         
-    
-def run_option6():
-    os.system("cls")
-    print("Digite a opção:\n")
-    print("[1]Listar documentos one drive")
-    print("[2]Listar ebooks one drive")
-    print("[3]Listar quadrinhos one drive")
-    print("[4]Listar mp3s one drive")
-    print("[5]Busca customizada")
-    print("[6]Busca por arquivo")
-    print("[7]Listar imagens URL")
-    print("[8]Listar extensão de imagens \n")
+    convert_batch(KINDLE_FOLDER,AZWEXT,AZWEXT3,OUT_DIR)  
 
-    
-    ch = -1
-    try:
-        ch=int(input("Digite sua opçao:"))
-    except:
-        ch = -1   
-
-    if   ch == -1:
-        print("Opcao invalida.")
-    elif ch == 1:
-        listmyfilesfull(ONEDRIVE,DOCUMENT_MASK,OUT_DIR)
-    elif ch == 2:
-        listmyfilesfull(ONEDRIVE,EBOOKS_MASK,OUT_DIR)
-    elif ch == 3:
-        listmyfilesfull(COMICS,COMICS_MASK,OUT_DIR) 
-    elif ch == 4:
-        listmyfilesfull(MUSIC_ONEDRIVE,MUSIC_MASK,OUT_DIR)   
-    elif ch == 5:
-        path  = input("Digite caminho: ")
-        ext   = input("Digite extensao: ") 
-        listmyfilesfull(path,[ext],OUT_DIR)  
-    elif ch == 6:
-        path  = input("Digite caminho: ")
-        fil   = input("Nome do arquivo: ")
-        find_file(path,fil)
-    elif ch == 7:
-        url1  = input("Digite URL: ")   
-        getAllImagesFromSite(url1)
-    elif ch == 8:
-        run_option8()
-    else:
-        print("Opcao invalida.")
-    
 def run_option7():
     os.system("cls")
     get_media(FICBOOKS,[EPUBEXT],OUT_DIR,1)    
- 
-def run_option8():
-    os.system("cls")   
-    printextensions(ONEDRIVE_IMAGE)
-    
+     
 def run_option9():
     os.system("cls") 
-    ext = input("Extensão:")
+    dir = input("Diretório de origem: ")
+    ext = input("Extensão: ")
     dest= input("Diretório de destino: ")
-    copyfiles(ONEDRIVE_IMAGE,ext,dest)
+    copyfiles(dir,ext,dest)
+
+def sub_menu_leave():
+    return "leave"
     
-def run_option10():
-    os.system("cls") 
-    ext = input("Extensão:")
-    remove_files(ONEDRIVE_IMAGE,ext)    
+def run_option_submenu1():
+    os.system("cls")
+    listmyfilesfull(ONEDRIVE,DOCUMENT_MASK,OUT_DIR)
+        
+def run_option_submenu2():
+    os.system("cls")
+    listmyfilesfull(ONEDRIVE,EBOOKS_MASK,OUT_DIR)
+        
+def run_option_submenu3():
+    os.system("cls")
+    listmyfilesfull(COMICS,COMICS_MASK,OUT_DIR) 
+        
+def run_option_submenu4():
+    os.system("cls")
+    listmyfilesfull(MUSIC_ONEDRIVE,MUSIC_MASK,OUT_DIR)  
+        
+def run_option_submenu5():
+    os.system("cls")
+    path  = input("Digite caminho: ")
+    ext   = input("Digite extensao: ") 
+    listmyfilesfull(path,[ext],OUT_DIR)  
+        
+def run_option_submenu6():
+    os.system("cls")
+    path  = input("Digite caminho: ")
+    fil   = input("Nome do arquivo: ")
+    find_file(path,fil)
+        
+def run_option_submenu7():
+    os.system("cls")
+    try:
+        url1  = input("Digite URL: ")   
+        getAllImagesFromSite(url1)
+    except:
+        print("Erro")
+        
+def run_option_submenu9():
+    os.system("cls")
+    try:
+        url  = input("Digite a URL: ")
+        file_name   = input("Nome do arquivo final: ")   
+        downloadfile(url,file_name)
+    except:
+        print("Erro")  
+        
+def run_option_submenu10():
+    os.system("cls")
+    try:
+        arquiv  = input("Caminho arquivo csv: ")
+        convert_csv_excel( arquiv ) 
+    except:
+        print("Erro")            
 
 def DoExit():
     print("Exiting application")
     exit()
+    
+    
+def run_submenu1():
+    
+    # configure the menu using this dictionary
+    submenuoptions = { 
+                1:[" Listar documentos one drive", run_option_submenu1],
+                2:[" Listar ebooks one drive", run_option_submenu2],
+                3:[" Listar quadrinhos one drive.", run_option_submenu3],
+                4:[" Listar mp3s one drive", run_option_submenu4],    
+                5:[" Busca customizada", run_option_submenu5],
+                6:[" Busca por arquivo", run_option_submenu6],
+                7:[" Listar imagens URL", run_option_submenu7],  
+                9:[" Download de arquivo", run_option_submenu9],
+                10:["Convert csv para excel", run_option_submenu10],
+                # add other calls here
+                11:["Voltar", sub_menu_leave]
+              }   
+                
+    runmenu(submenuoptions,"Utilidades: ", True)
+  
 
-def DoDefaultError():
-    os.system("cls")
-    print("Invalid entry")
-
-
-# configure the menu using this dictionary
-meuoptions = { 
+def main(argv):
+    
+    # configure the menu using this dictionary
+    menuoptions = { 
                 1:[" Listar todos arquivos de imagem do onedrive", run_option1],
                 2:[" Mudar a extensão dos arquivos zip para cbz.", run_option2],
                 3:[" Criar lista de mp3s por artista e album.", run_option3],
                 4:[" Remover pdfs da biblioteca do Calibre", run_option4],    
                 5:[" Remove DRM de arquivos kindle", run_option5],
-                6:[" Listar arquivos", run_option6],
+                6:[" Utilidades", run_submenu1],
                 7:[" Criar lista de ebooks", run_option7],  
                 9:[" Copiar arquivos", run_option9],
-                10:["Remover arquivos", run_option10],
                 # add other calls here
                 11:["Exit", DoExit]
               }
-
-def runmenu():
-    
-    while True:
-        os.system("cls")# Linux/unix use "clear"
-
-        print("-------------------------------------------")
-        print("Options:")
-        print("-------------------------------------------")
-        for key,actions in meuoptions.items():
-            print("({})      {}".format(key,actions[0]))           
-        print("-------------------------------------------")       
-        
-        ch = -1
-        try:
-            ch=int(input("Enter your choice: "))
-        except:
-            ch = -1
-        
-        if ch in meuoptions:
-            f = meuoptions[ch][1]
-            f()
-        else:
-            DoDefaultError()
-  
-        input("Press enter to continue.")
-
-def main(argv):
-    runmenu()
+              
+    runmenu(menuoptions)
                  
 if __name__ == '__main__':
     main(sys.argv)  

@@ -17,12 +17,12 @@ def getAllImages( soup ):
     for myimgtag in pElems:
         yield myimgtag.get('src')
                 
-def downloadfile( url, name ):
+def downloadfile( url, file_name ):
     
     res = requests.get(url)
-    print("Downloading {} from {} ".format(name,url))
+    print("Downloading {} from {} ".format(file_name,url))
     if res.status_code == requests.codes.ok:
-        thefile = open( name , 'wb')
+        thefile = open( file_name , 'wb')
         for chunk in res.iter_content(100000):
             thefile.write(chunk)
         thefile.close()
