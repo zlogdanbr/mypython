@@ -1,28 +1,19 @@
 '''
 _____________________________________________________________________________________________
 All my python useful functions/classes are here. 
-I only use this for hobby purposes.
-I am a c++ programmer by profession but python is my favorite language.
 
-- HANDLE FILES
-- HANDLE NETWORKING
-- HANDLE THREADS/PROCESS/OS
-- HANDLE FILE ITERATORS
-- HANDLE EBOOKS AND COMICS
-- HANDLE DIGITAL MEDIA 
-
-Required libs:
 
 pip install music_tag
-pip3 install ebookmeta
+pip install ebookmeta
 pip install pandas
 pip install openpyxl
 
 
-All you have to do is to include the file fileutilbr.py
-or 
-from fileutilbr import *
+from brlib.fileutilbr import *
+from brlib.webscrapbr import *
 
+2023 Daniel Gomes
+Use with care ;-)
 
 _____________________________________________________________________________________________
 
@@ -47,6 +38,7 @@ import ebookmeta
 import pandas as pd
 
 ################################## HANDLE FILES ############################################
+
 '''
 Creates a csv file that can be used by Machine learning algorithms
 '''
@@ -284,6 +276,9 @@ def change_extension(dir,ext,myextfinal):
                 changeExt(root + "/" + name,myextfinal) 
                 
 
+'''
+gets all extensions of files in a directory
+'''
 def getallextensions(dir):
     extentions = []
     for root, dirs, files in os.walk(dir):
@@ -292,7 +287,10 @@ def getallextensions(dir):
             if fext not in extentions:
                 extentions.append(fext)
                 yield fext
-                
+
+'''
+Prints all extensions
+'''
 def printextensions(dir):
     for ext in getallextensions(dir):
         print("extension: {}".format(ext))
@@ -338,12 +336,21 @@ def monitorPortsInterface():
     monitorPorts( ipaddress, port_init, port_end)
     
 
-################################## HANDLE THREADS/PROCESS/OS ############################################   
+################################## HANDLE APPs CONSOLE############################################  
 
-def DoDefaultError():
+'''
+Handles the default error for a menu
+'''
+def DoDefaultError(errmsg="Invalid entry"):
+    
     os.system("cls")
-    print("Invalid entry") 
+    print(errmsg) 
 
+'''
+Creates a menu using a dictionary 
+if submenu is True, it will create a submenu, eg,
+it will leave the submenu and go back to the main menu    
+'''
 def runmenu(menuoptions,header_str="Options:",submenu=False):
     
     while True:
@@ -375,6 +382,8 @@ def runmenu(menuoptions,header_str="Options:",submenu=False):
   
         input("Press enter to continue.")
         
+################################## HANDLE THREADS/PROCESS/OS ############################################  
+
 '''
 executes a commmand line cmd 
 '''
@@ -390,7 +399,9 @@ def run_win_cmd(cmd):
 
 ################################## HANDLE FILE ITERATORS ############################################
 
-
+'''
+looks for a file within a dir 
+'''
 def find_file( dir, filename ):
     for root, dirs, files in os.walk(dir):
         for name in files:
@@ -450,7 +461,8 @@ def file_ext_iterator2( dir, ext, full_path = False ):
                 else:
                     yield file_name,fext
  
-################################## HANDLE EBOOKS AND COMICS ############################################ 
+################################## HANDLE EBOOKS,DOCUMENTS AND COMICS ############################################ 
+
 '''
 calls ebook-convert.exe to convert myfile.input_format to myfile.output_format
 '''
@@ -480,11 +492,35 @@ def convert_batch( dir, ext_orig, ext_final,outdir):
                 final = "{}.{}".format(file_name, ext_final)
                 convert_files(root+"\\"+name,outdir+"\\"+final)
                 
-
+'''
+obtains ebook medata data
+'''
 def getebookmetadata(file):
-    meta = ebookmeta.get_metadata(file)
-        
+    
+    meta = ebookmeta.get_metadata(file)     
     return meta.author_list[0],meta.title
+    
+def list_book_data_and_rename(dir,ext):
+     for root, dirs, files in os.walk(dir):
+        for name in files:
+            fext = getextension(name)
+            file_name, t= os.path.splitext(name)
+            if ( fext in ext):
+                autor, title = getebookmetadata(root+"\\"+name)   
+                print("autor {} titulo '{}'".format(autor,title))
+                title_final_tmp = autor+"_"+title+"."+fext
+                title_final = title_final_tmp.replace(" ","_")
+                title_final = title_final.replace(":","")
+                os.rename(root+"\\"+name, root+"\\"+title_final)
+    
+'''
+converts a csv file to xlsx
+'''    
+def convert_csv_excel(excel_filename_csv):
+    
+    file_name, t = os.path.splitext(excel_filename_csv)
+    read_file_product = pd.read_csv(excel_filename_csv)
+    read_file_product.to_excel (file_name + ".xlsx", index = None, header=True)    
 
  
 ################################## HANDLE DIGITAL MEDIA ############################################ 
@@ -598,11 +634,6 @@ def get_media(folder,ext,out_dir,type = 0):
             else:
                 print("Error")
         
-
-def convert_csv_excel(excel_filename):
-    file_name, t = os.path.splitext(excel_filename)
-    read_file_product = pd.read_csv(excel_filename)
-    read_file_product.to_excel (file_name + ".xlsx", index = None, header=True)
  
 
 ################################## END OF FILE ############################################          

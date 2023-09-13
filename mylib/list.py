@@ -1,11 +1,22 @@
 '''
-2023 Daniel V Gomes
-_____________________________________________________________________________________________    
-'''
-# imports the functions---------------------------------------------------------
+_____________________________________________________________________________________________
+All my python useful functions/classes are here. 
+
 from brlib.fileutilbr import *
 from brlib.webscrapbr import *
+
+2023 Daniel Gomes
+Use with care ;-)
+_____________________________________________________________________________________________
+'''
+
+# imports the functions---------------------------------------------------------
+
+from brlib.fileutilbr import *
+from brlib.webscrapbr import *
+
 # sets the paths----------------------------------------------------------------
+
 CALIBRE_FOLDER = "C:\\Users\\Administrador\\Biblioteca do calibre"
 KINDLE_FOLDER = "C:\\Users\\Administrador\\Documents\\My Kindle Content"
 OUT_DIR = "C:\\Users\Administrador\\Documents\\tmp"
@@ -17,7 +28,9 @@ PYBOOKS = "C:\\Users\\Administrador\\OneDrive\\Tutorials And Important Files\\Pr
 FICBOOKS = "C:\\Users\\Administrador\\OneDrive\\ebooks\\Fiction"
 COMICS = "C:\\Users\\Administrador\\OneDrive\\Comics"
 ONEDRIVE_IMAGE = "C:\\Users\\Administrador\\OneDrive\\Pictures\\Fotos"
+
 #extensions for files-----------------------------------------------------------
+
 ZIPEXT = "zip"
 CBZEXT = "cbz"
 CBREXT = "cbr"
@@ -27,15 +40,18 @@ EPUBEXT = "epub"
 PDFEXT = "pdf"
 DOCEXT = "doc"
 RTFEXT = "rtf"
+
 #masks for multiple file processing---------------------------------------------
+
 DOCUMENT_MASK = [EPUBEXT,CBZEXT,PDFEXT,DOCEXT,RTFEXT]
 IMAGES_MASK   = ["gif","jpg", "bmp", "tiff", "png"]
 MUSIC_MASK   = ["mp3","flac", "ogg", "MP3","FLAC","OGG"]
-EBOOKS_MASK = [EPUBEXT,CBZEXT,PDFEXT]
+EBOOKS_MASK = [EPUBEXT,CBZEXT,PDFEXT,AZWEXT3]
 COMICS_MASK = [CBZEXT,CBREXT]
+
 #main program-------------------------------------------------------------------
 
-# create functions for the menu
+# functions for the main menu
 def run_option1():
     os.system("cls")
     ext_mask = []
@@ -63,6 +79,12 @@ def run_option5():
 def run_option7():
     os.system("cls")
     get_media(FICBOOKS,[EPUBEXT],OUT_DIR,1)    
+    
+def run_option8():
+    os.system("cls")
+
+    list_book_data_and_rename(OUT_DIR,"epub")
+
      
 def run_option9():
     os.system("cls") 
@@ -70,6 +92,9 @@ def run_option9():
     ext = input("Extensão: ")
     dest= input("Diretório de destino: ")
     copyfiles(dir,ext,dest)
+
+
+# functions for the sub menu
 
 def sub_menu_leave():
     return "leave"
@@ -110,6 +135,17 @@ def run_option_submenu7():
     except:
         print("Erro")
         
+def run_option_submenu8():
+    os.system("cls")
+    try:
+        dir_in = input("Digite diretório de origem: ") 
+        ext_in = input("Digite extensão de origem: ") 
+        ext_out = input("Digite extensão de saída: ") 
+        dir_out = input("Digite diretório de saída: ") 
+        convert_batch(dir_in,ext_in,ext_out,dir_out)
+    except:
+        print("Erro")        
+        
 def run_option_submenu9():
     os.system("cls")
     try:
@@ -131,7 +167,6 @@ def DoExit():
     print("Exiting application")
     exit()
     
-    
 def run_submenu1():
     
     # configure the menu using this dictionary
@@ -143,6 +178,7 @@ def run_submenu1():
                 5:[" Busca customizada", run_option_submenu5],
                 6:[" Busca por arquivo", run_option_submenu6],
                 7:[" Listar imagens URL", run_option_submenu7],  
+                8:[" Converter formatos de ebook", run_option_submenu8], 
                 9:[" Download de arquivo", run_option_submenu9],
                 10:["Convert csv para excel", run_option_submenu10],
                 # add other calls here
@@ -163,6 +199,7 @@ def main(argv):
                 5:[" Remove DRM de arquivos kindle", run_option5],
                 6:[" Utilidades", run_submenu1],
                 7:[" Criar lista de ebooks", run_option7],  
+                8:[" Obter dados de ebooks - formato epub", run_option8], 
                 9:[" Copiar arquivos", run_option9],
                 # add other calls here
                 11:["Exit", DoExit]
@@ -172,3 +209,5 @@ def main(argv):
                  
 if __name__ == '__main__':
     main(sys.argv)  
+
+################################## END OF FILE ############################################     
