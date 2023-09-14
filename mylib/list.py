@@ -52,6 +52,12 @@ def run_option4():
     dir = input("Diretório de origem: ")
     ext = input("Extensão: ")
     remove_files(dir,ext) 
+ 
+def run_option5():
+    
+    dir = input("Diretório de origem: ")
+    dir_out = input("Diretório de saída: ")
+    do_all_comics(dir,dir_out)
 
 def run_option7():
     os.system("cls")
@@ -187,7 +193,8 @@ def main(argv):
                 1:[" Listar todos arquivos de imagem do onedrive", run_option1],
                 2:[" Mudar a extensão dos arquivos zip para cbz.", run_option2],
                 3:[" Criar lista de mp3s por artista e album.", run_option3],
-                4:[" Remover arquivos", run_option4],    
+                4:[" Remover arquivos", run_option4],  
+                5:[" Remover DRM comics",run_option5],
                 7:[" Criar lista de ebooks", run_option7],  
                 8:[" Renomear livros formato epub", run_option8], 
                 9:[" Copiar arquivos", run_option9],

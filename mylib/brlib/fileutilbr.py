@@ -524,6 +524,14 @@ def getebookmetadata(file):
     
     meta = ebookmeta.get_metadata(file)     
     return meta.author_list[0],meta.title
+ 
+
+def do_all_comics( dir,outdir ):
+    
+    convert_batch(dir,AZWEXT,EPUBEXT,outdir)
+    list_book_data_and_rename( outdir, EPUBEXT )
+    convert_batch(outdir,EPUBEXT,ZIPEXT,outdir)
+    change_extension(outdir,ZIPEXT,CBZEXT)
     
 def list_book_data_and_rename(dir,ext):
 
