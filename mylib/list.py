@@ -17,37 +17,17 @@ from brlib.webscrapbr import *
 
 # sets the paths----------------------------------------------------------------
 
-CALIBRE_FOLDER = "C:\\Users\\Administrador\\Biblioteca do calibre"
-KINDLE_FOLDER = "C:\\Users\\Administrador\\Documents\\My Kindle Content"
-OUT_DIR = "C:\\Users\Administrador\\Documents\\tmp"
-EPUBOR = "C:\\Users\\Administrador\\AllDRMRemoval"
-ONEDRIVE= "C:\\Users\\Administrador\\OneDrive"
-MUSIC = "C:\\Users\\Administrador\\Music"
-MUSIC_ONEDRIVE= "C:\\Users\\Administrador\\OneDrive\\Music\\"
-PYBOOKS = "C:\\Users\\Administrador\\OneDrive\\Tutorials And Important Files\\Programming\\Python"
-FICBOOKS = "C:\\Users\\Administrador\\OneDrive\\ebooks\\Fiction"
-COMICS = "C:\\Users\\Administrador\\OneDrive\\Comics"
-ONEDRIVE_IMAGE = "C:\\Users\\Administrador\\OneDrive\\Pictures\\Fotos"
-
-#extensions for files-----------------------------------------------------------
-
-ZIPEXT = "zip"
-CBZEXT = "cbz"
-CBREXT = "cbr"
-AZWEXT = "azw"
-AZWEXT3 = "azw3"
-EPUBEXT = "epub"
-PDFEXT = "pdf"
-DOCEXT = "doc"
-RTFEXT = "rtf"
-
-#masks for multiple file processing---------------------------------------------
-
-DOCUMENT_MASK = [EPUBEXT,CBZEXT,PDFEXT,DOCEXT,RTFEXT]
-IMAGES_MASK   = ["gif","jpg", "bmp", "tiff", "png"]
-MUSIC_MASK   = ["mp3","flac", "ogg", "MP3","FLAC","OGG"]
-EBOOKS_MASK = [EPUBEXT,CBZEXT,PDFEXT,AZWEXT3]
-COMICS_MASK = [CBZEXT,CBREXT]
+HOME_FOLDER =       "C:\\Users\\Administrador\\"
+CALIBRE_FOLDER =    HOME_FOLDER + "Biblioteca do calibre"
+KINDLE_FOLDER =     HOME_FOLDER + "My Kindle Content"
+OUT_DIR =           HOME_FOLDER + "tmp"
+EPUBOR =            HOME_FOLDER + "AllDRMRemoval"
+ONEDRIVE=           HOME_FOLDER + "OneDrive"
+MUSIC =             HOME_FOLDER + "Music"
+MUSIC_ONEDRIVE =    ONEDRIVE    + "\\Music"
+FICBOOKS =          ONEDRIVE    + "\\ebooks\\Fiction"
+COMICS =            ONEDRIVE    + "\\Comics"
+ONEDRIVE_IMAGE =    ONEDRIVE    + "\\Pictures\\Fotos"
 
 #main program-------------------------------------------------------------------
 
@@ -97,35 +77,41 @@ def run_option9():
 # functions for the sub menu
 
 def sub_menu_leave():
-    return "leave"
+    return True
     
 def run_option_submenu1():
     os.system("cls")
     listmyfilesfull(ONEDRIVE,DOCUMENT_MASK,OUT_DIR)
+    return False
         
 def run_option_submenu2():
     os.system("cls")
     listmyfilesfull(ONEDRIVE,EBOOKS_MASK,OUT_DIR)
+    return False
         
 def run_option_submenu3():
     os.system("cls")
     listmyfilesfull(COMICS,COMICS_MASK,OUT_DIR) 
+    return False
         
 def run_option_submenu4():
     os.system("cls")
-    listmyfilesfull(MUSIC_ONEDRIVE,MUSIC_MASK,OUT_DIR)  
+    listmyfilesfull(MUSIC_ONEDRIVE,MUSIC_MASK,OUT_DIR) 
+    return False
         
 def run_option_submenu5():
     os.system("cls")
     path  = input("Digite caminho: ")
     ext   = input("Digite extensao: ") 
-    listmyfilesfull(path,[ext],OUT_DIR)  
+    listmyfilesfull(path,[ext],OUT_DIR) 
+    return False    
         
 def run_option_submenu6():
     os.system("cls")
     path  = input("Digite caminho: ")
     fil   = input("Nome do arquivo: ")
     find_file(path,fil)
+    return False
         
 def run_option_submenu7():
     os.system("cls")
@@ -134,6 +120,8 @@ def run_option_submenu7():
         getAllImagesFromSite(url1)
     except:
         print("Erro")
+        return False
+    return False
         
 def run_option_submenu8():
     os.system("cls")
@@ -144,8 +132,10 @@ def run_option_submenu8():
         dir_out = input("Digite diretório de saída: ") 
         convert_batch(dir_in,ext_in,ext_out,dir_out)
     except:
-        print("Erro")        
-        
+        print("Erro") 
+        return False
+    return False
+    
 def run_option_submenu9():
     os.system("cls")
     try:
@@ -154,6 +144,8 @@ def run_option_submenu9():
         downloadfile(url,file_name)
     except:
         print("Erro")  
+        return False
+    return False
         
 def run_option_submenu10():
     os.system("cls")
@@ -161,8 +153,11 @@ def run_option_submenu10():
         arquiv  = input("Caminho arquivo csv: ")
         convert_csv_excel( arquiv ) 
     except:
-        print("Erro")            
+        print("Erro")
+        return False
 
+    return False
+    
 def DoExit():
     print("Exiting application")
     exit()
@@ -197,10 +192,10 @@ def main(argv):
                 3:[" Criar lista de mp3s por artista e album.", run_option3],
                 4:[" Remover pdfs da biblioteca do Calibre", run_option4],    
                 5:[" Remove DRM de arquivos kindle", run_option5],
-                6:[" Utilidades", run_submenu1],
                 7:[" Criar lista de ebooks", run_option7],  
                 8:[" Obter dados de ebooks - formato epub", run_option8], 
                 9:[" Copiar arquivos", run_option9],
+                10:["Mais opções", run_submenu1],
                 # add other calls here
                 11:["Exit", DoExit]
               }

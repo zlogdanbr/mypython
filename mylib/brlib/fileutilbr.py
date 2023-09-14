@@ -2,6 +2,10 @@
 _____________________________________________________________________________________________
 All my python useful functions/classes are here. 
 
+https://pandas.pydata.org
+https://pypi.org/project/ebookmeta/
+https://pypi.org/project/music-tag/
+https://openpyxl.readthedocs.io/en/stable/
 
 pip install music_tag
 pip install ebookmeta
@@ -10,7 +14,7 @@ pip install openpyxl
 
 
 from brlib.fileutilbr import *
-from brlib.webscrapbr import *
+
 
 2023 Daniel Gomes
 Use with care ;-)
@@ -36,6 +40,27 @@ from mutagen.oggvorbis import OggVorbis
 from mutagen.flac import FLAC
 import ebookmeta
 import pandas as pd
+
+#extensions for files-----------------------------------------------------------
+
+ZIPEXT = "zip"
+CBZEXT = "cbz"
+CBREXT = "cbr"
+AZWEXT = "azw"
+AZWEXT3 = "azw3"
+EPUBEXT = "epub"
+PDFEXT = "pdf"
+DOCEXT = "doc"
+RTFEXT = "rtf"
+
+#masks for multiple file processing---------------------------------------------
+
+DOCUMENT_MASK = [EPUBEXT,CBZEXT,PDFEXT,DOCEXT,RTFEXT]
+IMAGES_MASK   = ["gif","jpg", "bmp", "tiff", "png"]
+MUSIC_MASK   = ["mp3","flac", "ogg", "MP3","FLAC","OGG"]
+EBOOKS_MASK = [EPUBEXT,CBZEXT,PDFEXT,AZWEXT3]
+COMICS_MASK = [CBZEXT,CBREXT]
+
 
 ################################## HANDLE FILES ############################################
 
@@ -375,7 +400,7 @@ def runmenu(menuoptions,header_str="Options:",submenu=False):
                 f()                
             else:
                 ret = f()
-                if ret == "leave":
+                if ret == True:
                     return
         else:
             DoDefaultError()

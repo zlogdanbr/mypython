@@ -3,10 +3,9 @@ ________________________________________________________________________________
 All my python useful functions/classes are here. 
 
 
-
+https://pypi.org/project/beautifulsoup4/
 pip install bs4
 
-from brlib.fileutilbr import *
 from brlib.webscrapbr import *
 
 2023 Daniel Gomes
