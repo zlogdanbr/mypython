@@ -20,7 +20,7 @@ from brlib.webscrapbr import *
 HOME_FOLDER =       "C:\\Users\\Administrador\\"
 CALIBRE_FOLDER =    HOME_FOLDER + "Biblioteca do calibre"
 KINDLE_FOLDER =     HOME_FOLDER + "My Kindle Content"
-OUT_DIR =           HOME_FOLDER + "tmp"
+OUT_DIR =           HOME_FOLDER + "Documents\\tmp"
 EPUBOR =            HOME_FOLDER + "AllDRMRemoval"
 ONEDRIVE=           HOME_FOLDER + "OneDrive"
 MUSIC =             HOME_FOLDER + "Music"
