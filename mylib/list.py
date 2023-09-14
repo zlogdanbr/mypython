@@ -49,12 +49,9 @@ def run_option3():
     get_media(MUSIC,MUSIC_MASK,OUT_DIR,0)
     
 def run_option4():
-    os.system("cls")
-    remove_files(CALIBRE_FOLDER,PDFEXT)
-    
-def run_option5():
-    os.system("cls")
-    convert_batch(KINDLE_FOLDER,AZWEXT,AZWEXT3,OUT_DIR)  
+    dir = input("Diretório de origem: ")
+    ext = input("Extensão: ")
+    remove_files(dir,ext) 
 
 def run_option7():
     os.system("cls")
@@ -62,8 +59,8 @@ def run_option7():
     
 def run_option8():
     os.system("cls")
-
-    list_book_data_and_rename(OUT_DIR,"epub")
+    dir = input("Diretório de origem: ")
+    list_book_data_and_rename(dir,"epub")
 
      
 def run_option9():
@@ -190,17 +187,16 @@ def main(argv):
                 1:[" Listar todos arquivos de imagem do onedrive", run_option1],
                 2:[" Mudar a extensão dos arquivos zip para cbz.", run_option2],
                 3:[" Criar lista de mp3s por artista e album.", run_option3],
-                4:[" Remover pdfs da biblioteca do Calibre", run_option4],    
-                5:[" Remove DRM de arquivos kindle", run_option5],
+                4:[" Remover arquivos", run_option4],    
                 7:[" Criar lista de ebooks", run_option7],  
-                8:[" Obter dados de ebooks - formato epub", run_option8], 
+                8:[" Renomear livros formato epub", run_option8], 
                 9:[" Copiar arquivos", run_option9],
                 10:["Mais opções", run_submenu1],
                 # add other calls here
                 11:["Exit", DoExit]
               }
               
-    runmenu(menuoptions)
+    runmenu(menuoptions,"Janela Inicial")
                  
 if __name__ == '__main__':
     main(sys.argv)  

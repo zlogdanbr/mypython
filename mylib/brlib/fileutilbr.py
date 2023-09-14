@@ -526,11 +526,12 @@ def getebookmetadata(file):
     return meta.author_list[0],meta.title
     
 def list_book_data_and_rename(dir,ext):
+
      for root, dirs, files in os.walk(dir):
         for name in files:
             fext = getextension(name)
             file_name, t= os.path.splitext(name)
-            if ( fext in ext):
+            if fext in ext:
                 autor, title = getebookmetadata(root+"\\"+name)   
                 print("autor {} titulo '{}'".format(autor,title))
                 title_final_tmp = autor+"_"+title+"."+fext
