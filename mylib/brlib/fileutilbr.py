@@ -11,6 +11,7 @@ pip install music_tag
 pip install ebookmeta
 pip install pandas
 pip install openpyxl
+pip install pillow
 
 
 from brlib.fileutilbr import *
@@ -40,6 +41,7 @@ from mutagen.oggvorbis import OggVorbis
 from mutagen.flac import FLAC
 import ebookmeta
 import pandas as pd
+from PIL import Image
 
 #extensions for files-----------------------------------------------------------
 
@@ -274,17 +276,31 @@ def listmyfiles(folder,ext):
     for file in file_ext_iterator(folder,ext):
         print(file)
         
+def get_image_info( file ):
+    im = Image.open(file)
+    return im.format, im.size, im.mode
+    
 '''
 List files with extensions ext under folder
 '''    
-def listmyfilesfull(folder,ext,path):
+def listmyfilesfull(folder,ext,path, isimage= True):
     full_path = path + "\\tmp.txt"
     with open(full_path, 'w', encoding='utf-16') as fl: 
         for file in file_ext_iterator(folder,ext,True):            
             if file != "":
-                print(file)  
-                fl.write(file)
-                fl.write("\n")
+                if isimage == False:
+                    print(file)  
+                    fl.write(file)
+                    fl.write("\n")
+                else:
+                    try:
+                        format, size, mode = get_image_info(file)
+                        print(file)  
+                        fl.write("{} {} {} {}".format(file , format, size, mode))
+                        fl.write("\n")   
+                    except:
+                        pass
+                    
 
 '''
 changes the extension all files under the directory dir ( including subfolders ) 
@@ -560,7 +576,9 @@ def convert_csv_excel(excel_filename_csv):
 ################################## HANDLE DIGITAL MEDIA ############################################ 
 
 
+
 def get_file_info( musicfile, ext ):
+    
         f = None
         if ext == "mp3":
             f = MP3(musicfile)
