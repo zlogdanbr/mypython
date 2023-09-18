@@ -253,6 +253,21 @@ def copy(src,dst):
     if os.path.isdir(dst):
         dst = os.path.join(dst, os.path.basename(src))
     shutil.copyfile(src, dst)
+    
+def move(src,dst):
+
+    if os.path.isdir(dst):
+        dst = os.path.join(dst, os.path.basename(src))
+    shutil.move(src, dst)   
+
+def create_folder( dir_root, name ):
+    
+    full_path = dir_root + "\\" + name
+    if os.path.exists(full_path) == False:
+        os.mkdir(full_path)
+    else:
+        return ""
+    return full_path
 
 '''
 Gets the extension of a file
@@ -300,7 +315,8 @@ def listmyfilesfull(folder,ext,path, isimage= True):
                         fl.write("\n")   
                     except:
                         pass
-                    
+    
+
 
 '''
 changes the extension all files under the directory dir ( including subfolders ) 
@@ -411,11 +427,11 @@ def runmenu(menuoptions,header_str="Options:",submenu=False):
             ch = -1
         
         if ch in menuoptions:
-            f = menuoptions[ch][1]
+            function_from_menu = menuoptions[ch][1]
             if submenu == False:                
-                f()                
+                function_from_menu()                
             else:
-                ret = f()
+                ret = function_from_menu()
                 if ret == True:
                     return
         else:
@@ -428,14 +444,26 @@ def runmenu(menuoptions,header_str="Options:",submenu=False):
 '''
 executes a commmand line cmd 
 '''
-def run_win_cmd(cmd):
-
-    result = subprocess.run(cmd, shell=True, capture_output=True, encoding='UTF-8')
+def run_win_cmd(cmd, tokenize=False):
+    
+    result = ""
+    
+    try:
+        result = subprocess.run(cmd, shell=True, capture_output=True, encoding='UTF-8')
+    except:
+        return None
     
     if len(result.stderr) > 0:   
         print(result.stderr)
     else:
-        print(result.stdout)    
+        if tokenize == False:
+            print(result.stdout) 
+            return None
+        else:
+            if result.stdout == None:
+                return None
+            return result.stdout.split("\n")
+
 
 
 ################################## HANDLE FILE ITERATORS ############################################

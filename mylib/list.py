@@ -76,6 +76,24 @@ def run_option9():
 def sub_menu_leave():
     
     return True
+    
+def run_option_submenu1():  
+    
+    cmd_str = input("digite o comando: ")
+    cmd = cmd_str.split()
+    
+    try:
+    
+        output  = run_win_cmd( cmd, True )
+        
+        if output != None:
+            for o in output:
+                print(o)                           
+    except:
+        
+        print("Command not supported")
+        
+    return False
         
 def run_option_submenu3():
     
@@ -165,12 +183,13 @@ def run_submenu1():
                 13:["Download de arquivo", run_option_submenu9],
                 14:["Convert csv para excel", run_option_submenu10],
                 15:["Listar HQs em um diretório",run_option_submenu3],
+                20:["Executar comando", run_option_submenu1],
                 # add other calls here
                 21:["Voltar", sub_menu_leave]
               }   
                 
     runmenu(submenuoptions,"Utilidades: ", True)
-  
+
 
 def main(argv):
     
