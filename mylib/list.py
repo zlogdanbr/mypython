@@ -181,7 +181,7 @@ def run_submenu1():
                 11:["Listar imagens URL", run_option_submenu7],  
                 12:["Converter formatos de ebook", run_option_submenu8], 
                 13:["Download de arquivo", run_option_submenu9],
-                14:["Convert csv para excel", run_option_submenu10],
+                14:["Converter csv para excel", run_option_submenu10],
                 15:["Listar HQs em um diretório",run_option_submenu3],
                 20:["Executar comando", run_option_submenu1],
                 # add other calls here

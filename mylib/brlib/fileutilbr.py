@@ -30,7 +30,6 @@ from pathlib import Path
 import shutil
 import subprocess
 import socket
-import sys, os
 import pprint
 import binascii
 import traceback
@@ -188,7 +187,7 @@ class filespliter:
 This class is used to open a file, read its lines and return
 a list with all the lines
 '''
-class FileOpener:
+class fileopener:
 
     f = None
     filename = None
@@ -224,7 +223,7 @@ def copyfiles(dir,ext,dir_dest):
         for name in files:
             fext = getextension(name)
             full = "{}\{}".format(root,name)
-            if ( fext == ext):
+            if fext == ext:
                 print("copying {}".format(full))
                 copy( full,dir_dest)
  
@@ -238,7 +237,7 @@ def remove_files(dir,ext):
         for name in files:
             fext = getextension(name)
             full = "{}\{}".format(root,name)
-            if ( fext == ext):                
+            if fext == ext:                
                 if os.path.isfile(full):
                     print("removing {}".format(full))
                     os.remove(full)
@@ -315,8 +314,6 @@ def listmyfilesfull(folder,ext,path, isimage= True):
                         fl.write("\n")   
                     except:
                         pass
-    
-
 
 '''
 changes the extension all files under the directory dir ( including subfolders ) 
@@ -328,7 +325,7 @@ def change_extension(dir,ext,myextfinal):
     for root, dirs, files in os.walk(dir):
         for name in files:
             fext = getextension(name)
-            if ( fext == ext):
+            if fext == ext:
                 print("Changing {}/{}".format(root,name))
                 changeExt(root + "/" + name,myextfinal) 
                 
@@ -444,7 +441,7 @@ def runmenu(menuoptions,header_str="Options:",submenu=False):
 '''
 executes a commmand line cmd 
 '''
-def run_win_cmd(cmd, tokenize=False):
+def run_win_cmd(cmd, tokenize_output=False):
     
     result = ""
     
@@ -454,9 +451,11 @@ def run_win_cmd(cmd, tokenize=False):
         return None
     
     if len(result.stderr) > 0:   
-        print(result.stderr)
+        if tokenize_output == False:
+            print(result.stderr)
+        return None
     else:
-        if tokenize == False:
+        if tokenize_output == False:
             print(result.stdout) 
             return None
         else:
@@ -557,7 +556,7 @@ def convert_batch( dir, ext_orig, ext_final,outdir):
         for name in files:
             fext = getextension(name)
             file_name, t= os.path.splitext(name)
-            if ( fext == ext_orig):
+            if fext == ext_orig:
                 final = "{}.{}".format(file_name, ext_final)
                 convert_files(root+"\\"+name,outdir+"\\"+final)
                 
@@ -572,9 +571,19 @@ def getebookmetadata(file):
 
 def do_all_comics( dir,outdir ):
     
+    print("Removing DRM...\n-----------------------------------------------------------")
     convert_batch(dir,AZWEXT,EPUBEXT,outdir)
+    os.system("cls")
+     
+    print("Rename files using author and title...\n------------------------------------")
     list_book_data_and_rename( outdir, EPUBEXT )
+    os.system("cls")
+    
+    print("Packing individual files...\n-----------------------------------------------")
     convert_batch(outdir,EPUBEXT,ZIPEXT,outdir)
+    os.system("cls")
+    
+    print("Creating cbz files...\n-----------------------------------------------------")
     change_extension(outdir,ZIPEXT,CBZEXT)
     
 def list_book_data_and_rename(dir,ext):
