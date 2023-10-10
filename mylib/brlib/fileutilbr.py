@@ -41,6 +41,7 @@ from mutagen.flac import FLAC
 import ebookmeta
 import pandas as pd
 from PIL import Image
+from threading import Thread
 
 #extensions for files-----------------------------------------------------------
 
@@ -637,7 +638,7 @@ def get_media(folder,ext,out_dir,type = 0):
     prev_t = ""
     prev_a = ""
     cnt = 1
-    
+        
     path = 0
     if type == 0:
         path = out_dir+"\\music_list.txt"
