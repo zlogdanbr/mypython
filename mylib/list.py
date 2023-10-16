@@ -40,12 +40,14 @@ def run_option3():
     
 def run_option4():
     
+    os.system("cls")
     dir = input("Diretório de origem: ")
     ext = input("Extensão: ")
     remove_files(dir,ext) 
  
 def run_option5():
     
+    os.system("cls")
     dir = input("Diretório de origem: ")
     dir_out = input("Diretório de saída: ")
     do_all_comics(dir,dir_out)
