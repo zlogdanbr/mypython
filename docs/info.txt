@@ -88,23 +88,7 @@ conforme https://tecadmin.net/install-python-3-7-on-centos/
 
 https://tecadmin.net/install-python-3-6-on-centos/
 
-____________________________________________________________________________________________
-## Banco de dados
 
-exemplo conexao
-
-import cx_Oracle
-con = cx_Oracle.connect('cl24aegl/cl24aegl@10.99.168.25/orion')
-
-cur = con.Cursor()
-cur.execute("select ...")
-for row in cursor:
-    print(row[0])
-cur.close()
-con.close()
-
-conforme:
-https://www.oracle.com/technetwork/articles/dsl/python-091105.html
  
 ____________________________________________________________________________________________
 
