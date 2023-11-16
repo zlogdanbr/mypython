@@ -539,9 +539,10 @@ def convert_files( orig, dest ):
 
     print("Running ebook-convert for "+orig+" "+dest)
     cmd = []
-    cmd.append("ebook-convert")
+    cmd.append("ebook-convert")    
     cmd.append(orig)
     cmd.append(dest)
+    cmd.append("--prefer-metadata-cover")
     run_win_cmd(cmd)
 
         
@@ -574,17 +575,18 @@ def do_all_comics( dir,outdir ):
     
     print("Removing DRM...\n-----------------------------------------------------------")
     convert_batch(dir,AZWEXT,EPUBEXT,outdir)
-    os.system("cls")
+    #os.system("cls")
      
     print("Rename files using author and title...\n------------------------------------")
     list_book_data_and_rename( outdir, EPUBEXT )
-    os.system("cls")
+    #os.system("cls")
     
     print("Packing individual files...\n-----------------------------------------------")
-    convert_batch(outdir,EPUBEXT,ZIPEXT,outdir)
-    os.system("cls")
+    convert_batch(outdir,EPUBEXT,PDFEXT,outdir)
+    convert_batch(outdir,PDFEXT,ZIPEXT,outdir)
+    #os.system("cls")
     
-    print("Creating cbz files...\n-----------------------------------------------------")
+    #print("Creating cbz files...\n-----------------------------------------------------")
     change_extension(outdir,ZIPEXT,CBZEXT)
     
 def list_book_data_and_rename(dir,ext):
