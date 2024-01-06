@@ -45,8 +45,8 @@ def make_range_busy( ips, port ):
         
 def main(argv):
     
-    ips = [ "0.0.0.0"]
-    port = 0
+    ips = [ "192.168.1.2"]
+    port = 8065
 
 
     make_range_busy(ips,port)
